@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizSphere</title>
+    <link rel="shortcut icon" href="icon.jpg" type="image/x-icon">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="form-box">
+
+        <div class="button-box">
+            <div id="col-btn"></div>
+
+
+            <button type="button" class="btn" onclick="login()">Sign in</button>
+            <button type="button" class="btn" onclick="signup()">sign up</button>
+        </div>
+
+        <form id="log-in" class="input-group" action="../Student_home_page/studenthome.html">
+
+            <input type="email" class="input-field" placeholder="Email/Phone number" required>
+            <input type="password" class="input-field" placeholder="Password" required>
+            <p align="right"><a href="#">Forget Password</a></p>
+            <button type="submit" class="submit-btn">Sign in  </button>
+            <pre>Doesn't have an account? <a href="#">Sign up</a></pre>
+        </form>
+        <form id="sign-up" class="input-group" action="../Student_Registration/studRegist.html">
+           
+            <input type="text" class="input-field" placeholder="Full name" required>
+            <input type="email" class="input-field" placeholder="Email id" required>
+            <input type="password" class="input-field" placeholder="Password" required>
+            <input type="password" class="input-field" placeholder="Confirm Password" required>
+            <input type="password" class="input-field" placeholder=" Confirm code" required>
+            <button type="submit" class="submit-btn">Sign up</button>
+            <pre>Already have an account?<a href="#">Sign in</a></pre>
+        
+        </form>
+
+    </div>
+
+    <script>
+
+        var x = document.getElementById("log-in");
+        var y = document.getElementById("sign-up");
+        var z = document.getElementById("col-btn");
+
+        function signup(){
+            x.style.left="-400px";
+            y.style.left="50px";
+            z.style.left="110px";
+
+        }
+
+        function login(){
+            x.style.left="50px";
+            y.style.left="450px";
+            z.style.left="0px";
+
+
+        }
+
+    </script>
+    
+</body>
+</html>
