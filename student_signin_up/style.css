@@ -5,7 +5,7 @@
 }
 
 body{
-    background-color: blueviolet;
+    background: linear-gradient(to bottom left, #cc0099 0%, #000066 95%);
     height: 100%;
     width: 100%;
     position: absolute;
