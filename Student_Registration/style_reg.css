@@ -12,7 +12,7 @@ body{
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgb(174, 84, 252);
+    background: rgb(0, 0, 0);
 }
 .container{
     position: relative;
@@ -100,7 +100,17 @@ body{
     color: #707070;
     font-size: 1rem;
 }
-
+.card
+{
+    font-size: 1rem;
+    margin-top: 0px;
+    /* font-weight: 300 */
+    color: #333;
+}
+.card_img
+{
+    margin-top: 15px;
+}
 .form button{
     height: 55px;
     width: 100%;
