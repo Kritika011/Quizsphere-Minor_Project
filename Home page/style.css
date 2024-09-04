@@ -1,12 +1,19 @@
-body{
-        background: linear-gradient(to bottom left, #cc0099 0%, #000066 95%);
-        /* width: 100vw; */
+/* body{
+        background-color: #380030;
+        width: 100vw;
         margin: 0;
         background-repeat: no-repeat;
         background-size: cover;
         overflow: hidden;
 }
-.leckerli-one-regular {
+/* #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  } */
+/* .leckerli-one-regular {
   font-family: "Leckerli One", cursive;
   font-weight: 400;
   font-style: normal;
@@ -92,7 +99,7 @@ padding:25px;
             align-items: center;
             /* height: 100vh; */
             /* background-color: #f0f0f0; */
-            margin: 0;
+            /* margin: 0;
             margin-top: 4vw;
             flex-direction: column;
 
@@ -103,11 +110,11 @@ padding:25px;
     font-size: 3vw;
     text-align: center;
             /* font-size: 2rem; */
-            color: #ffffff;
-            overflow: hidden;
+            /* color: #ffffff;
+            overflow: hidden; */
             /* border-right: 0.15em solid orange; */
              /* Cursor effect */
-            white-space: nowrap;
+            /* white-space: nowrap;
             margin: 0 auto;
             letter-spacing: 0.15em;
             animation: typing 2s steps(2), blink-caret 0.15s step-end infinite;
@@ -139,10 +146,10 @@ padding:25px;
     font-style: italic;
     font-size: 2vw;
     border: none;
-    text-align: center;
+    text-align: center; */
 
     /* margin-left: 2cm; */
-}
+/* }
 a{
     text-decoration: none;
     color: #000;
@@ -152,4 +159,184 @@ a{
     background-color: #f3e98a;
     color: #380030;
 }
+ */ 
 
+
+
+
+body{
+    margin: 0;
+    height: 100vh;
+    /* weight: 100vw; */
+    background: linear-gradient(to bottom left,#000066 0%,#cc0099 95%);
+    overflow: hidden;
+}
+* {
+    box-sizing: border-box;
+  }
+  .leckerli-one-regular {
+    font-family: "Leckerli One", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+          .navbar {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              background-color: rgba(0, 0, 0, 0.47);
+              padding: 0.5vw 1vw;
+          }
+          .navbar .logo {
+              color: white;
+              font-size: 0.5vw;
+              text-align: center;
+          }
+          .dp{
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+          }
+          .navbar .nav-links {
+              display: flex;
+              gap: 25px;
+          }
+          .navbar .nav-links a {
+              color: white;
+              text-decoration: none;
+              font-size: 20px;
+          }
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .flex-item-left {
+    /* background-color: #230000; */
+    padding: 10px;
+    flex: 20%;
+  }
+  .flex-item-center {
+    /* background-color: #f1f1f1; */
+    padding: 10px 0px 0px  80px;
+    flex: 50%;
+  }
+  .flex-item-right {
+    /* background-color: dodgerblue; */
+    padding: 10px;
+    flex: 30%;
+  }
+  .myVideo
+  {
+    width: 25vw;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 0vw;
+    /* margin: 2vw; */
+  }
+  .white{
+    width: 17vw;
+  }
+  .white1{
+    width: 17vw;
+    margin-top: 8vw;
+  }
+  
+ 
+  .contain {
+    display: flex;
+    flex-direction: row;
+    /* font-size: 30px; */
+    text-align: center;
+  }
+  .smler {
+    /* background-color: #f1f1f1; */
+    padding-left: 2vw;
+    flex: 40%;
+    /* position: relative; */
+  }
+  .admin
+  {
+    width: 10vw;
+    float: left;
+    border: 3px solid #3e9c00;
+    border-radius: 50%;
+  }
+  .overlay-text-add{
+    /* position: absolute; */
+    /* top: 50%; 
+    left: 50%;  */
+    transform: translate(-15%, -62%); 
+    /* background-color: #000000;  */
+    color: #fff; 
+    /* padding-top: 10vw;
+    margin-left: 12vw; */
+    font-size: 2vw; 
+    text-align: center;
+    width: 100%;
+  }
+
+
+
+  .bigger {
+    /* background-color: dodgerblue; */
+    /* padding: 10px; */
+    flex: 60%;
+    margin-right: 7vw;
+    margin-top: 1vw;
+    /* position: relative; */
+  }
+   .student
+  {
+    width: 14.5vw;
+    float: right;
+    border: 3px solid #3e9c00;
+    border-radius: 50%;
+  }
+  
+  .overlay-text-stu {
+    /* position: absolute; */
+    /* top: 50%; 
+    left: 50%;  */
+    transform: translate(18%, -62%); 
+    /* background-color: #000000;  */
+    color: #fff; 
+    /* padding-top: 10vw;
+    margin-left: 12vw; */
+    font-size: 3vw; 
+    text-align: center;
+    width: 100%;
+  }
+
+
+
+
+
+
+
+  .image-container {
+    position: relative;
+    /* display: inline-block; */
+  }
+  .teach
+  {
+    width: 17vw;
+    float: inline-start;
+    /* display: block; */
+    border: 3px solid #3e9c00;
+    border-radius: 50%;
+  }
+  
+  .overlay-text {
+    /* position: absolute; */
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    /* background-color: #000000;  */
+    color: #fff; 
+    padding-top: 10vw;
+    font-size: 3vw; 
+    text-align: center;
+  }

@@ -11,7 +11,7 @@
 <body>
     <section class="container">
         <h2>Registration form</h2>
-        <form action="../Student_home_page/studenthome.html" class="form">
+        <form method="POST" action="register.php" class="form">
             <div class="input-box">
                 <label>Full Name</label>
                 <input type="text" placeholder="Enter full name" required/>
@@ -82,6 +82,22 @@
                 <input type="text" placeholder="Enter your pincode" required/>
             </div>
 
+    <div class="input-box addres">
+        <label for="role">Select Role:</label>
+        <div class="select-box">
+        <select name="role" id="role" required>
+            <option value="">--Select Role--</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <!-- <option value="admin">Admin</option> -->
+        </select>
+    </div>
+    </div>
+
+
+
+        <!-- Role-Specific Fields -->
+        <div id="studentFields" style="display:none;">
             <div class="input-box">
                 <label >Institute Name</label>
                 <input type="text" placeholder="Enter full name" required/>
@@ -95,6 +111,7 @@
                             <option hidden>Choose Course</option>
                             <option >BCA</option>
                             <option >BBA</option>
+                            <option >MCA</option>
                         </select>
                     </div>
                 </div>
@@ -115,8 +132,55 @@
                 </div>
             </div>
 
-            <button >Submit</button>
-        </form>
+
+        
+        </div>
+
+        <div id="teacherFields" style="display:none;">
+                <div class="input-box">
+                    <label >Institute Name</label>
+                    <input type="text" placeholder="Enter full name" required/>
+                </div>
+
+
+                <div class="card_img" >
+            <label for="id_card" class="card">Upload ID Card:</label>
+            <input type="file" name="id_card" id="id_card" accept="image/*" required>
+                </div>
+        </div>
+
+
+        <!-- <div id="adminFields" style="display:none;">
+            <input type="text" name="department" placeholder="Department">
+        </div>
+
+        <br> -->
+        
+        <button >Submit</button>
+    </form>
     </section>
+
+    <script>
+        // JavaScript to show/hide fields based on role selection
+        document.getElementById('role').addEventListener('change', function() {
+            var studentFields = document.getElementById('studentFields');
+            var teacherFields = document.getElementById('teacherFields');
+            // var adminFields = document.getElementById('adminFields');
+            
+            studentFields.style.display = 'none';
+            teacherFields.style.display = 'none';
+            // adminFields.style.display = 'none';
+
+            if (this.value == 'student') {
+                studentFields.style.display = 'block';
+            } else if (this.value == 'teacher') {
+                teacherFields.style.display = 'block';
+            }
+            //  else if (this.value == 'admin') {
+            //     adminFields.style.display = 'block';
+            // }
+        });
+    </script>
+
 </body>
 </html>
