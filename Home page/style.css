@@ -1,6 +1,6 @@
 body{
-        background-color: #380030;
-        width: 100vw;
+        background: linear-gradient(to bottom left, #cc0099 0%, #000066 95%);
+        /* width: 100vw; */
         margin: 0;
         background-repeat: no-repeat;
         background-size: cover;
