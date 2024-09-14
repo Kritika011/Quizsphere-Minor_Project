@@ -1,55 +1,123 @@
 
+
+
+  
         body {
-          background: linear-gradient(to bottom left, #cc0099 0%, #000066 95%);
             font-family: Arial, sans-serif;
             margin: 0;
+            padding: 0;
+            background-color: #00000017;
         }
 
-        .navbar {
+        .leckerli-one-regular {
+            font-family: "Leckerli One", cursive;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .quiz {
+            font-family: "Leckerli One", cursive;
+            color: rgb(255, 255, 255);
+            font-size: 1.4vw;
+            padding-left: 1vw;
+        }
+
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #333;
-            padding: 7px 20px;
+            background-color: #000000;
+            /* padding: 10px 20px; */
+            position: relative;
         }
-        .navbar .logo {
-            color: white;
-            font-size: 20px;
+
+        /* .logo {
+            flex: 1;
+        } */
+
+        .nav {
+            flex: 2;
             text-align: center;
         }
-        .dp{
-            width: 50px;
-            height: 50px;
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            font-size: 1vw;
+            font-weight: bold;
+        }
+
+        .profile {
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 3vw;
+            cursor: pointer;
+            margin-right: 1.5vw;
             border-radius: 50%;
         }
-        .navbar .nav-links {
-            display: flex;
-            gap: 25px;
+
+        .popup {
+            display: none;
+            position: absolute;
+            top: 54px;
+            right: 0px;
+            width: 230px;
+            background: rgb(0, 0, 0);
+            border: 01px solid #000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1.5vw;
+            z-index: 1000;
+            color: #ddd;
         }
-        .navbar .nav-links a {
-            color: white;
+
+        .popup.active {
+            display: block;
+        }
+
+        .profile-image {
+            width: 5vw;
+            border-radius: 50%;
+            object-fit: cover;
+            align-items: center;
+            margin: auto;
+            display: block;
+        }
+
+        .names {
+            margin: 0;
+            font-size: 1.5vw;
+            padding: 0.5vw;
+            text-align: center;
+
+        }
+
+        .popup ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+        }
+
+        .popup ul li {
+            margin: 10px 0;
+        }
+
+        .popup ul li a {
             text-decoration: none;
-            font-size: 18px;
+            color: #007bff;
+            font-weight: bold;
         }
-        .navbar .search-box {
-            display: flex;
-            gap: 5px;
+
+        .popup ul li a:hover {
+            text-decoration: underline;
         }
-        .navbar .search-box input[type="text"] {
-            padding: 5px;
-            font-size: 16px;
-        }
-        .navbar .search-box button {
-            padding: 5px 10px;
-            font-size: 16px;
-            background-color: #555;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .navbar .search-box button:hover {
-            background-color: #777;
-        }
+  
+
+
+
+
         .flex-container {
             display: flex;
             flex-direction: row;
@@ -66,7 +134,8 @@
 }
 
 .flex-item-right {
-  background: linear-gradient(to bottom left, #cc0099 0%, #000066 95%);
+  /* background: linear-gradient(to bottom left, #cc0099 0%, #000066 95%); */
+  /* background-color: #0000004c; */
   padding: 10px;
   flex: 75%;
 }
@@ -90,16 +159,23 @@
   flex-wrap: wrap;
 }
 
-.flex-containers .sub {
+.sub {
   background-color: #f1f1f1;
   margin: 2vw;
-  width: 10vw;
+  width: 90vw;
+  height: 10vw;
   padding: 1.5vw;
   text-align: center;
   font-size: 1.5vw;
-  border: 5px groove rgb(174, 16, 156);
+  border: 5px groove rgb(0, 0, 0);
+  border-radius: 0 100px;
   text-align: center;
   justify-content: center;
+}
+.sub img{
+    /* position: fixed; */
+    float: left;
+    margin: 0;
 }
 .menu{
  cursor: pointer;

@@ -7,29 +7,43 @@
     <title>QuizSphere</title>
     <link rel="shortcut icon" href="image/icon.jpg" type="image/x-icon">
 </head>
+
 <body>
-    <div class="navbar">
+    <header class="header">
         <div class="logo">
-            <img class="dp" src="image/icon.jpg">
+            <!-- <img src="icon.jpg" alt="Logo" width="40"> -->
+            <p class="quiz">Quiz Sphere</p>
+            <!-- Or use text for the website name -->
+            <!-- <h1>QuizWhiz</h1> -->
         </div>
-        <div class="nav-links">
+        <nav class="nav">
             <a href="#">Home</a>
-            <a href="#">Take quiz</a>
+            <a href="#">Teake Quiz</a>
             <a href="#">Result</a>
             <a href="#">Course</a>
-            <a href="#">Chatbot</a>
-            <a href="#">About us</a>
+            <a href="#">ChatBot</a>
+        </nav>
+        <div class="profile">
+            <img src="image/Untitled design.png" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
+            <div id="popup" class="popup">
+                <img src="image/Untitled design.png" alt="Profile Picture" class="profile-image">
+                <h3 class="names">John Doe</h3>
+                <ul>
+                    <li><a href="#">Account Setting</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
         </div>
-        <!-- <div class="search-box">
-            <input type="text" placeholder="Search...">
-            <button type="button">Search</button>
-        </div> -->
-    </div>
-    <div class="flex-container">
-        <div class="flex-item-left">
-            <!-- <span onclick="openMenu()">&#9776;</span>  -->
+    </header>
+
+
+      <div class="flex-container">
+        <!-- <div class="flex-item-left">
+            <span onclick="openMenu()">&#9776;</span> 
             <div id="Menu" >
-            <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a> -->
+            <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
             <img class="prof" src="image\Untitled design.png">
             <h5>Full Name</h5>
             <h5>Email</h5>
@@ -39,14 +53,46 @@
             <h5>course</h5>
             <h5>admission year</h5>
             <h5>college name</h5>
-        </div>
+        </div> -->
         </div>
         <div class="flex-item-right">
+            <div class="select-box">
+                <select >
+                    <option hidden>Course</option>
+                    <option >BCA</option>
+                    <option >MCA</option>
+                    <option >BBA</option>
+                </select>
+            </div>
+            <div class="select-box" >
+                <select >
+                    <option hidden>Semester</option>
+                    <option >1st sem</option>
+                    <option >2nd sem</option>
+                    <option >3rd sem</option>
+                    <option >4th sem</option>
+                    <option >5th sem</option>
+                    <option >6th sem</option>
+                </select>
+            </div>
             <div class="flex-containers">
-                <div class="sub">C Programming</div>
-                <div class="sub">c++</div>
-                <div class="sub">Java</div>  
-                <div class="sub">Python</div>
+                <div class="sub" >
+                    <img src="image/0_DI4ointlcukqBf0s.jpg" alt="" width="500vw" height="150vh">
+                    <div class="details" style="float: right;">
+                    <h5>C Programming</h5>
+                    <pre style="font-size: 0.9rem;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum odit magnam corporis saepe eveniet <br> tenetur velit?o inventore blanditiis facilis praesentium dolores reprehenderit.</pre>
+                    <button type="button">open</button>
+                </div>
+                </div>
+                <!-- <div class="sub">
+                    c++
+                </div>
+                <div class="sub">
+                    Java
+                </div>  
+                <div class="sub">
+                    Python
+                </div>
                 <div class="sub">DBMS</div>
                 <div class="sub">Digital Electronics</div>  
                 <div class="sub">soft skill</div>
@@ -57,18 +103,16 @@
                 <div class="sub">software Engineering</div>
                 <div class="sub">Computer networking</div>
                 <div class="sub">Unix</div>
-                <div class="sub"> Cyber Security</div>
+                <div class="sub"> Cyber Security</div> -->
             </div>
         </div>
       </div>
-      <!-- <script>
-        function openMenu() {
-          document.getElementById("Menu").style.display = "block";
-        }
-        
-        function closeMenu() {
-          document.getElementById("Menu").style.display = "none";
-        }
-        </script> -->
+
+        <script>
+            function togglePopup() {
+                var popup = document.getElementById('popup');
+                popup.classList.toggle('active');
+            }
+        </script>
 </body>
 </html>
