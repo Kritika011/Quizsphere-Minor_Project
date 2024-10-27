@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+}
+
+.dropdowns {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+}
+
+.large-box {
+  width: 80%;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.large-box img {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.large-box .btn {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.vertical-boxes {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.vertical-box {
+  background-color: #222;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.course-card {
+  background-color: #222;
+  border-radius: 10px;
+  margin: 15px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.course-card img {
+  width: 80px;
+}
+
+.course-card h3 {
+  margin: 10px 0;
+}
+
+.course-card p {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.btn {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: darkgreen;
+}
+
+/* For the bottom horizontal box */
+.bottom-section {
+  width: 100%;
+  background-color: #111;
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

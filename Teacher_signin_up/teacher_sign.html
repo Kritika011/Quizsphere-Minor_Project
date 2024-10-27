@@ -3,66 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizSphere</title>
-    <link rel="shortcut icon" href="icon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+    <title>Subject Details - C Programming</title>
+    <style>
+        /* Styling for the container and layout */
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
 
+        h2 {
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        /* Styling for the status buttons */
+        .status-button {
+            padding: 5px 10px;
+            color: white;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .attendant {
+            background-color: green;
+        }
+
+        .unattendant {
+            background-color: red;
+        }
+
+        .pending {
+            background-color: orange;
+        }
+
+        /* Styling for the view details link */
+        .view-details {
+            text-decoration: none;
+            color: blue;
+            font-weight: bold;
+        }
+
+        .view-details:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="form-box">
+<div class="container">
+    <!-- Subject details header -->
+    <h2>C Programming (BCA C101)</h2>
+    <p>Course: BCA</p>
+    <p>Semester: 3</p>
 
-        <div class="button-box">
-            <div id="col-btn"></div>
+    <!-- Table for exam papers -->
+    <table>
+        <thead>
+            <tr>
+                <th>Paper Title</th>
+                <th>Actions</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Midterm Exam - C Programming</td>
+                <td><a href="#" class="view-details">View Details</a></td>
+                <td><span class="status-button attendant">Attendant</span></td>
+            </tr>
+            <tr>
+                <td>Final Exam - C Programming</td>
+                <td><a href="#" class="view-details">View Details</a></td>
+                <td><span class="status-button unattendant">Unattendant</span></td>
+            </tr>
+            <tr>
+                <td>Assignment - C Programming</td>
+                <td><a href="#" class="view-details">View Details</a></td>
+                <td><span class="status-button pending">Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-
-            <button type="button" class="btn" onclick="login()">Sign in</button>
-            <button type="button" class="btn" onclick="signup()">sign up</button>
-        </div>
-
-        <form id="log-in" class="input-group" action="../Teacher_home_page/teacherhome.html">
-
-            <input type="email" class="input-field" placeholder="Email/Phone number" required>
-            <input type="password" class="input-field" placeholder="Password" required>
-            <p align="right"><a href="#">Forget Password</a></p>
-            <button type="submit" class="submit-btn">Sign in</button>
-            <pre>Doesn't have an account? <a href="#">Sign up</a></pre>
-        </form>
-        <form id="sign-up" class="input-group" action="../Teacher_Registration/teachRegist.html">
-           
-            <input type="text" class="input-field" placeholder="Full name" required>
-            <input type="email" class="input-field" placeholder="Email/Phone number" required>
-            <input type="password" class="input-field" placeholder="Password" required>
-            <input type="password" class="input-field" placeholder="Confirm Password" required>
-            <input type="password" class="input-field" placeholder=" Confirm code" required>
-            <button type="submit" class="submit-btn">Sign up</button>
-            <pre>Already have an account?<a href="#">Sign in</a></pre>
-        
-        </form>
-
-    </div>
-
-    <script>
-
-        var x = document.getElementById("log-in");
-        var y = document.getElementById("sign-up");
-        var z = document.getElementById("col-btn");
-
-        function signup(){
-            x.style.left="-400px";
-            y.style.left="50px";
-            z.style.left="110px";
-
-        }
-
-        function login(){
-            x.style.left="50px";
-            y.style.left="450px";
-            z.style.left="0px";
-
-
-        }
-    </script>
-    
 </body>
 </html>
