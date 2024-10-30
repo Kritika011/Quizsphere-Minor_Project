@@ -1,0 +1,82 @@
+.icon {
+    z-index: 10;
+    position: absolute;
+    height: 140px;
+    width: 100px;
+}
+
+.usericon{
+    z-index: 10;
+    position: absolute;
+    height: 35px;
+    width: 55px;
+    margin-left: 37cm;
+}
+img{
+    width: 50px;
+    height: 50px;
+    margin-left: 4mm;
+    border-radius: 50%;
+    z-index: 10;
+    position: absolute;
+}
+
+h1{
+    margin-left: 13cm;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 17px 16px;
+    text-decoration: none;
+    float: right;
+    margin-right: 4cm;
+    /* margin: auto; */
+}
+  
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+form{
+    margin-left: 200px;
+}
+
+input[type="radio"] {
+    display: none; 
+    width: 50px;  
+}
+.radio-label{
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    padding: 5px 20px;
+    border: 2px solid rgb(153, 149, 143);
+    background-color: gainsboro;
+    cursor: pointer;
+    width: 70px;
+}
+
+input[type="radio"]:checked + .radio-label{
+    border-color: grey;
+    color: azure;
+    background-color: darkgrey;
+    box-shadow: 10px 10px 5px lightslategray;
+}
+button{
+    height: 40px;
+    width: 100px;
+    background-color: dimgray;
+    color: aliceblue;
+    box-shadow: 10px 10px 5px lightslategray;
+    margin-right:300px;
+}
