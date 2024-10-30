@@ -22,10 +22,10 @@
             <!-- <h1>QuizWhiz</h1> -->
         </div>
         <nav class="nav">
-            <a href="../Student_home_page/studenthome.php">Home</a>
-            <a href="../Student_Allpage/takequiz.php">Take Quiz</a>
-            <a href="../">Result</a>
-            <a href="../Student_Allpage/questionformat.php">Provide Test</a>
+            <a href="../Teacher_home_page/teacherhome.html">Home</a>
+            <a href="../Student_Allpage/takequiz.php">Provide Test</a>
+            <a href="#">Contributions</a>
+            <a href="#">Result</a>
             <a href="https://chatgpt.com/">ChatBot</a>
         </nav>
         <div class="profile">

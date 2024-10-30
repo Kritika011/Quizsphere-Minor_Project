@@ -16,8 +16,8 @@
     ?>
 
     <div id="form-making">
-        <form>
-            <label for="subjects">Subject Name</label>
+        <form action="../Student_Allpage/questioninput.php">
+            <label for="subjects"> Subject Name</label>
             <select id="subjects" name="subjects">
                 <option hidden>Select Subject Name</option>
                 <option value="Java">Java</option>
@@ -28,7 +28,7 @@
             <br><br>
 
             <label for="subject-code"> Subject Code </label>
-            <select id="subject-code" name="subject-code">
+            <select class="subject-code" name="subject-code">
                 <option hidden>Select Subject Code</option>
                 <option value="B">BCAC301</option>
                 <option value="">BCAC302</option>
@@ -36,21 +36,21 @@
                 <option value="">BCAC401</option>
             </select>
             <br><br>
-            <label>No of Question</label>
+            <!-- <label>No of Question</label> -->
 
-            <input class="input" type="text" placeholder="No of Questions">
+            <input class="input" type="number" placeholder="No of Questions">
             <br><br>
 
-            <label class="marks">Marks per Question</label>
+            <!-- <label class="marks">Marks per Question</label> -->
 
-            <input class="input" type="text" placeholder="Marks per Question">
+            <input class="input" type="number" placeholder="Marks per Question">
             <br><br>
 
-            <label>Total Time</label>
+            <!-- <label>Total Time</label> -->
 
-            <input class="input" type="text" placeholder="Time Limit">
+            <input class="input" type="timer" placeholder="Time Limit">
             <br><br>
-            <button class="btn" type="submit">Submit</button>
+            <input class="btn" type="submit" name="submit" value="Submit">
 
 
 

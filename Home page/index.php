@@ -18,9 +18,10 @@
             <p class="quiz">Quiz Sphere</p>
         </div>
         <nav class="nav">
+            <a href="">Admin</a>
             <a href="#">ChatBot</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
+            <a href="../Contact_us/contact.php">Contact Us</a>
+            <a href="../about_us/about.php">About Us</a>
 
         </nav>
         <!-- <div class="profile">

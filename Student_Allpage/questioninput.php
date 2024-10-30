@@ -17,7 +17,7 @@
 
     <div id="section2">
         <h2>Enter Here</h2>
-        <form>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <label class="label1">Enter Your 1 Question</label>
             <input class="input" type="text"><br>
             <div class="choose">
@@ -56,9 +56,7 @@
                 <input class="input2" type="text"><br>
             </div>
 
-            <button class="btn" type="button">Submit</button>
-
-
+            <input class="btn" type="submit" name="submit" value="Submit">
 
 
 

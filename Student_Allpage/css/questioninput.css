@@ -15,7 +15,8 @@ body {
   color: white;
   text-align: center;
   align-items: center;
-  border: 3px solid black;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.5);
+  /* border: 3px solid black; */
   padding: 2vw 0vw;
   margin-top: 2vw;
 }

@@ -33,7 +33,7 @@
                 <tr>
                     <td>C programing.Question Paper set 1</td>
                     <td><span class="status-button pending">Pending</span></td>
-                    <td><a href="#link" class="links">click here</a></td>
+                    <td><a href="../Student_Allpage/questiondetails.php" class="links">click here</a></td>
                 </tr>
 
                 <tr>

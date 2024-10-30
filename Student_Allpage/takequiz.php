@@ -76,21 +76,20 @@
             <div class="course-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg"
                     alt="C Programming">
-                <h3>Course Details</h3>
+                <h3>C Programming</h3>
                 <p>Test your skills in C programming. Multiple choice questions designed for all levels.</p>
-                <form action="quiz.php" method="get">
+                <form action="../Student_Allpage/questionstatus.php" method="get">
                     <input type="hidden" name="course" value="c_programming">
-                    <button class="btn" type="submit">Open</button>
+                    <button class="btn" type="submit"> Open</button>
                 </form>
             </div>
 
-            <!-- Course 2 -->
             <div class="course-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg"
                     alt="C Programming">
                 <h3>C Programming</h3>
                 <p>Test your skills in C programming. Multiple choice questions designed for all levels.</p>
-                <form action="quiz.php" method="get">
+                <form action="../Student_Allpage/questionstatus.php" method="get">
                     <input type="hidden" name="course" value="c_programming">
                     <button class="btn" type="submit">Open</button>
                 </form>
@@ -102,33 +101,14 @@
                     alt="C Programming">
                 <h3>C Programming</h3>
                 <p>Test your skills in C programming. Multiple choice questions designed for all levels.</p>
-                <form action="quiz.php" method="get">
+                <form action="../Student_Allpage/questionstatus.php" method="get">
                     <input type="hidden" name="course" value="c_programming">
                     <button class="btn" type="submit">Open</button>
                 </form>
             </div>
         </div>
 
-        <!-- Vertical Boxes for Other Subjects -->
-        <div class="vertical-boxes">
-            <?php if (count($subject_list) > 1): ?>
-                <?php for ($i = 1; $i < count($subject_list); $i++): ?>
-                    <div class="vertical-box">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg"
-                            alt="C Programming">
 
-                        <h3><?php echo $subject_list[$i]; ?></h3>
-                        <p>Learn more about
-                            <?php echo $subject_list[$i]; ?>.
-                        </p>
-                    </div>
-                <?php endfor; ?>
-            <?php else: ?>
-                <div class="vertical-box">
-                    <h3>No Subjects Available</h3>
-                </div>
-            <?php endif; ?>
-        </div>
 
 </body>
 
