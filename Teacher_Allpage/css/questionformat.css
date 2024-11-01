@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 1em;
+}
+
+body {
+  background-color: #333;
+}
+
+form {
+  width: 70%;
+  margin: auto;
+  background-color: #222;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5vw;
+  padding: 3%;
+}
+
+label {
+  /* font-size: 1.4rem;
+  padding: 2vw 2vw; */
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+.marks {
+  /* font-size: 1.4rem;
+  padding: 2vw 1vw 2vw 2vw; */
+}
+#subjects {
+  /* height: 2.2vw; */
+  /* width: 34vw; */
+  width: 32vw;
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+  border: none;
+  font-size: 1rem;
+  padding: 1vw;
+  margin-left: 0.8vw;
+  /* padding-left: 1vw; */
+}
+.subject-code {
+  /* height: 2.2vw; */
+  width: 32vw;
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+  border: none;
+  font-size: 1rem;
+  padding: 1vw;
+  margin-left: 1vw;
+  /* padding-left: 1vw; */
+}
+
+.input {
+  /* height: 2.2vw; */
+  width: 41vw;
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+  border: none;
+  padding: 1vw;
+}
+.input::placeholder {
+  color: #ffffff;
+  font-size: 1.2rem;
+  opacity: 1;
+}
+.btn {
+  height: 27px;
+  width: 22%;
+  background-color: green;
+  font-size: 1.3rem;
+  border: none;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
