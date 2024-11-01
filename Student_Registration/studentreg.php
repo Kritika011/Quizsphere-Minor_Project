@@ -62,11 +62,7 @@
                     <div class="select-box">
                         <select>
                             <option hidden>Enter your Country</option>
-                            <option>America</option>
-                            <option>Bangladesh</option>
                             <option>India</option>
-                            <option>Japan</option>
-                            <option>Nepal</option>
                         </select>
                     </div>
 
@@ -74,6 +70,32 @@
                         <select>
                             <option hidden>Enter your State</option>
                             <option>West Bengal</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Arunachal Pradesh</option>
+                            <option>Assam</option>
+                            <option>Bihar</option>
+                            <option>Chhattisgarh</option>
+                            <option>Goa</option>
+                            <option>Gujarat</option>
+                            <option>Haryana</option>
+                            <option>Himachal Pradesh</option>
+                            <option>Jharkhand</option>
+                            <option>Karnataka</option>
+                            <option>Madhya Pradesh</option>
+                            <option>Maharashtra</option>
+                            <option>Manipur</option>
+                            <option>Meghalaya</option>
+                            <option>Mizoram</option>
+                            <option>Nagaland</option>
+                            <option>Odisha</option>
+                            <option>Rajasthan</option>
+                            <option>Sikkim</option>
+                            <option>Tamil Nadu</option>
+                            <option>Telangana</option>
+                            <option>Tripura</option>
+                            <option>Uttarakhand</option>
+                            <option>Uttar Pradesh</option>
+                    
                         </select>
                     </div>
 
