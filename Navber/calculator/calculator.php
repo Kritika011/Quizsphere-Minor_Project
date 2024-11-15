@@ -1,100 +1,68 @@
+<?php
+// You can add any PHP logic here if needed, such as user authentication or dynamic content
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Floating Calculator</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .calculator {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: black;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        .calculator input,
-        .calculator button {
-            width: 100%;
-            margin: 5px 0;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .calculator button {
-            background-color: #444;
-            color: white;
-            cursor: pointer;
-        }
-
-        .calculator button:hover {
-            background-color: #555;
-        }
-    </style>
+    <title>Advanced Floating Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="calculator" id="calculator">
-        <input type="text" id="expression" placeholder="Enter expression" />
-        <button onclick="calculate()">Calculate</button>
-        <div id="result"></div>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">Your Website</a>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <!-- Open Calculator Button -->
+                <button onclick="openCalculator()" id="openBtn" class="nav-btn">Open Calculator</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="calculator" class="calculator">
+        <div class="headers">
+            <span class="titles">Advanced Calculator</span>
+            <button onclick="closeCalculator()">X</button>
+        </div>
+        <input class="inputes" type="text" id="display" disabled>
+        <div class="buttons">
+            <button class="buttones" onclick="appendToDisplay('1')">1</button>
+            <button class="buttones" onclick="appendToDisplay('2')">2</button>
+            <button class="buttones" onclick="appendToDisplay('3')">3</button>
+            <button class="buttones" onclick="appendToDisplay('+')">+</button>
+            <button class="buttones" onclick="appendToDisplay('4')">4</button>
+            <button class="buttones" onclick="appendToDisplay('5')">5</button>
+            <button class="buttones" onclick="appendToDisplay('6')">6</button>
+            <button class="buttones" onclick="appendToDisplay('-')">-</button>
+            <button class="buttones" onclick="appendToDisplay('7')">7</button>
+            <button class="buttones" onclick="appendToDisplay('8')">8</button>
+            <button class="buttones" onclick="appendToDisplay('9')">9</button>
+            <button class="buttones" onclick="appendToDisplay('')"></button>
+            <button class="buttones" onclick="appendToDisplay('0')">0</button>
+            <button class="buttones" onclick="appendToDisplay('.')">.</button>
+            <button class="buttones" onclick="calculate()">=</button>
+            <button class="buttones" onclick="appendToDisplay('/')">/</button>
+            <button class="buttones" onclick="clearDisplay()">C</button>
+            <button class="buttones" onclick="calculateSquareRoot()">√</button>
+            <button class="buttones" onclick="appendToDisplay('')">^</button>
+            <button class="buttones" onclick="calculateSin()">sin</button>
+            <button class="buttones" onclick="calculateCos()">cos</button>
+            <button class="buttones" onclick="calculateTan()">tan</button>
+            <button class="buttones" onclick="calculateLog()">log</button>
+            <button class="buttones" onclick="calculateExp()">exp</button>
+        </div>
     </div>
+    <!-- <button onclick="openCalculator()" id="openBtn">Open Calculator</button> -->
 
-    <script>
-        // Function to move the calculator around
-        const calculator = document.getElementById('calculator');
-        let isDragging = false;
-
-        calculator.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            const offsetX = e.clientX - calculator.getBoundingClientRect().left;
-            const offsetY = e.clientY - calculator.getBoundingClientRect().top;
-
-            const moveCalculator = (e) => {
-                if (isDragging) {
-                    calculator.style.left = e.pageX - offsetX + 'px';
-                    calculator.style.top = e.pageY - offsetY + 'px';
-                }
-            };
-
-            document.addEventListener('mousemove', moveCalculator);
-
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-                document.removeEventListener('mousemove', moveCalculator);
-            }, { once: true });
-        });
-
-        function calculate() {
-            const expression = document.getElementById('expression').value;
-            fetch('calculate.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'expression=' + encodeURIComponent(expression)
-            })
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('result').innerText = data;
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>

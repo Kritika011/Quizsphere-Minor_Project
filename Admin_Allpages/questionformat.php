@@ -12,52 +12,108 @@
 
 <body>
     <?php
-    include '../Navber/nav.php';
+    include '../Navber/adminnav.php';
+    include_once '../config.php';
+
+    // Form submission handling
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $subject_id = $_POST['subject'];
+        $num_of_questions = $_POST['num_of_questions'];
+        $marks_per_question = $_POST['marks_per_question'];
+        $time_limit = $_POST['time_limit'];
+        $submitted_by = 'admin'; // or set to logged-in user ID if available
+    
+        // Insert data into paperdetails table
+        $stmt = $conn->prepare("INSERT INTO paperdetails (subject_id, num_of_questions, marks_per_question, time_limit, submitted_by) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiss", $subject_id, $num_of_questions, $marks_per_question, $time_limit, $submitted_by);
+
+        if ($stmt->execute()) {
+            // Get the last inserted paper ID
+            $paper_id = $conn->insert_id;
+
+            // Redirect to questioninput.php with paper_id and num_of_questions as GET parameters
+            header("Location: questioninput.php?paper_id=$paper_id&num_of_questions=$num_of_questions");
+            exit;
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+        $conn->close();
+    }
+
+    // Fetch subjects for dropdown
+    $subjects = [];
+    $query = "SELECT subject_id, subject_name, subject_code FROM subjects";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $subjects[] = $row;
+        }
+    }
     ?>
 
     <div id="form-making">
-        <form action="../Student_Allpage/questioninput.php">
-            <label for="subjects"> Subject Name</label>
-            <select id="subjects" name="subjects">
+        <form action="" method="post"> <!-- Form submits to this page itself -->
+            <select id="subjects" name="subject" required onchange="syncSubjectCode(this.value)">
                 <option hidden>Select Subject Name</option>
-                <option value="Java">Java</option>
-                <option value="Operating System">Operating System</option>
-                <option value="Python">Python</option>
-                <option value="Database Management System">Database Management System</option>
+                <?php foreach ($subjects as $subject) { ?>
+                    <option value="<?php echo $subject['subject_id']; ?>"
+                        data-code="<?php echo $subject['subject_code']; ?>">
+                        <?php echo $subject['subject_name']; ?>
+                    </option>
+                <?php } ?>
             </select>
             <br><br>
 
-            <label for="subject-code"> Subject Code </label>
-            <select class="subject-code" name="subject-code">
+            <select id="subject-code" name="subject_code" required onchange="syncSubjectName(this.value)">
                 <option hidden>Select Subject Code</option>
-                <option value="B">BCAC301</option>
-                <option value="">BCAC302</option>
-                <option value="">BCAC403</option>
-                <option value="">BCAC401</option>
+                <?php foreach ($subjects as $subject) { ?>
+                    <option value="<?php echo $subject['subject_id']; ?>"
+                        data-name="<?php echo $subject['subject_name']; ?>">
+                        <?php echo $subject['subject_code']; ?>
+                    </option>
+                <?php } ?>
             </select>
             <br><br>
-            <!-- <label>No of Question</label> -->
 
-            <input class="input" type="number" placeholder="No of Questions">
+            <input id="num_questions" class="input" type="number" name="num_of_questions" placeholder="No of Questions"
+                required>
             <br><br>
 
-            <!-- <label class="marks">Marks per Question</label> -->
-
-            <input class="input" type="number" placeholder="Marks per Question">
+            <input id="marks_per_question" class="input" type="number" name="marks_per_question"
+                placeholder="Marks per Question" required>
             <br><br>
 
-            <!-- <label>Total Time</label> -->
-
-            <input class="input" type="timer" placeholder="Time Limit">
+            <input id="time_limit" class="input" type="text" name="time_limit" pattern="[0-9]{2}:[0-9]{2}"
+                placeholder="e.g., 40:00" required>
             <br><br>
+
             <input class="btn" type="submit" name="submit" value="Submit">
-
-
-
         </form>
     </div>
 
+    <script>
+        function syncSubjectCode(subjectId) {
+            const subjectSelect = document.getElementById("subjects");
+            const codeSelect = document.getElementById("subject-code");
+            const selectedOption = subjectSelect.querySelector(`option[value="${subjectId}"]`);
 
+            if (selectedOption) {
+                codeSelect.value = subjectId;
+            }
+        }
+
+        function syncSubjectName(subjectId) {
+            const subjectSelect = document.getElementById("subjects");
+            const codeSelect = document.getElementById("subject-code");
+            const selectedOption = codeSelect.querySelector(`option[value="${subjectId}"]`);
+
+            if (selectedOption) {
+                subjectSelect.value = subjectId;
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -16,7 +16,7 @@
     ?>
 
     <div id="form-making">
-        <form action="../Student_Allpage/questioninput.php" message="done">
+        <form action="../Teacher_Allpage\subjectaddition.php" message="done">
 
             <input class="input" type="name" placeholder="Subject Name" required>
             <br><br>

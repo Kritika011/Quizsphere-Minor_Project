@@ -23,10 +23,10 @@
         </div>
         <nav class="nav">
             <a href="../Teacher_home_page/teacherhome.html">Home</a>
-            <a href="../Student_Allpage/takequiz.php">Provide Test</a>
-            <a href="#">Contributions</a>
-            <a href="#">Result</a>
-            <a href="https://chatgpt.com/">ChatBot</a>
+            <a href="../Teacher_Allpage/questionformat.php">Provide Test</a>
+            <a href="../Teacher_Allpage/submitbytech.php">Contributions</a>
+            <a href="../Teacher_Allpage/studentattention.php">Result</a>
+            <a href="../main.php">ChatBot</a>
         </nav>
         <div class="profile">
             <img src="image/icon.jpg" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
