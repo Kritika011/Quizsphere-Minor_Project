@@ -11,7 +11,10 @@
 </head>
 
 <body>
-    <?php include '../Navber/adminnav.php';
+    <?php
+    session_start();
+    include '../Navber/adminnav.php';
+
     include_once '../config.php'; ?>
     <?php
     $num_of_questions = isset($_GET['num_of_questions']) ? (int) $_GET['num_of_questions'] : 0;

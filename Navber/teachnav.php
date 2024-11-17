@@ -37,7 +37,7 @@
                     <li><a href="#">Account Setting</a></li>
                     <li><a href="../Contact_us/contact.php">Contact Us</a></li>
                     <li><a href="../about_us/about.php">About Us</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="../Navber/logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>

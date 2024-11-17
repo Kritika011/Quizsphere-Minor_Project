@@ -11,7 +11,10 @@
 </head>
 
 <body>
-    <?php include '../Navber/teachnav.php';
+    <?php
+    session_start();
+    include_once '../config.php';
+    include '../Navber/teachnav.php';
     include_once '../config.php'; ?>
     <?php
     $num_of_questions = isset($_GET['num_of_questions']) ? (int) $_GET['num_of_questions'] : 0;
@@ -24,7 +27,7 @@
 
 
         <form
-            action="<?php echo htmlspecialchars($_SERVER["#"]) . "?num_of_questions=$num_of_questions&paper_id=$paper_id"; ?>"
+            action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . "?num_of_questions=$num_of_questions&paper_id=$paper_id"; ?>"
             method="post">
             <?php for ($i = 1; $i <= $num_of_questions; $i++) { ?>
                 <div class="question-block">
@@ -54,17 +57,12 @@
 
 </html>
 <?php
-// Assuming num_of_questions is passed via URL or POST from previous form
-// echo "Number of Questions: " . $num_of_questions;
+
 
 $num_of_questions = isset($_GET['num_of_questions']) ? (int) $_GET['num_of_questions'] : 0;
 $paper_id = isset($_GET['paper_id']) ? (int) $_GET['paper_id'] : 0;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Handle form submission to insert questions into database
-    include_once '../config.php';
-    // echo "Number of Questions: " . $num_of_questions;
-
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['role'] === 'teacher') {
     for ($i = 0; $i < $num_of_questions; $i++) {
         $question = $_POST["question"][$i];
         $option1 = $_POST["option1"][$i];
@@ -73,17 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $option4 = $_POST["option4"][$i];
         $correct_answer = $_POST["correct_answer"][$i];
 
-        $stmt = $conn->prepare("INSERT INTO exam_questions (paper_id, question, option1, option2, option3, option4, correct_answer) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("
+            INSERT INTO exam_questions (paper_id, question, option1, option2, option3, option4, correct_answer)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ");
         $stmt->bind_param("issssss", $paper_id, $question, $option1, $option2, $option3, $option4, $correct_answer);
-        if ($stmt->execute()) {
-            echo "Question $i saved successfully!<br>";
-        } else {
-            echo "Error saving question $i: " . $stmt->error . "<br>";
-        }
-
+        $stmt->execute();
     }
-    $conn->close();
-    // echo "Questions successfully saved!";
-    exit;
+    // echo "Questions saved successfully!";
 }
 ?>

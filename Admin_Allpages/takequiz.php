@@ -1,13 +1,3 @@
-<?php
-session_start();
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
-//     exit;
-// }
-
-// echo "Logged-in user ID: " . $_SESSION['user_id'];
-// echo "User role: " . $_SESSION['role'];
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,8 +12,9 @@ session_start();
 
 <body>
     <?php
+    session_start();
     include '../config.php';  // Include your database connection file
-    include '../Navber/nav.php';
+    include '../Navber/adminnav.php';
     ?>
     <br>
     <?php
@@ -84,7 +75,7 @@ session_start();
                         <h3><?php echo $subject['subject_name']; ?></h3>
                         <p><?php echo $subject['details']; ?></p>
 
-                        <form action="../Student_Allpage/questionstatus.php" method="get">
+                        <form action="../Admin_Allpages/questionstatus.php" method="get">
                             <input type="hidden" name="subject_id" value="<?php echo $subject['subject_id']; ?>">
                             <button class="btn" type="submit">Open</button>
                         </form>

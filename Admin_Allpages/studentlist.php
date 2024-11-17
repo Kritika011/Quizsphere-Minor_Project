@@ -62,7 +62,10 @@
 </head>
 
 <body>
-    <?php include '../Navber/adminnav.php'; ?>
+    <?php
+    session_start();
+    include '../Navber/adminnav.php';
+    ?>
 
     <div class="container">
         <div class="button-group">
@@ -75,7 +78,7 @@
             <h2>Manage Teachers</h2>
             <?php
             include '../config.php';
-            $sql_teacher = "SELECT * FROM users WHERE role='teacher' ORDER BY name ASC";
+            $sql_teacher = "SELECT * FROM user WHERE role='teacher' ORDER BY name ASC";
             $result_teacher = $conn->query($sql_teacher);
 
             if ($result_teacher->num_rows > 0) {
@@ -106,7 +109,7 @@
         <div id="student-table" class="table-container">
             <h2>Manage Students</h2>
             <?php
-            $sql_student = "SELECT * FROM users WHERE role='student' ORDER BY name ASC";
+            $sql_student = "SELECT * FROM user WHERE role='student' ORDER BY name ASC";
             $result_student = $conn->query($sql_student);
 
             if ($result_student->num_rows > 0) {

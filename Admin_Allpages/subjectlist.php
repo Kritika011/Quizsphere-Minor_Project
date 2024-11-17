@@ -56,6 +56,7 @@
 
 <body>
     <?php
+    session_start();
     include '../Navber/adminnav.php';
     ?>
     <?php

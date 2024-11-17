@@ -8,70 +8,14 @@
     <title>QuizSphere</title>
     <link rel="shortcut icon" href="image/icon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="../Navber/style.css">
-
-    <style>
-        .quiz {
-            font-family: "Leckerli One", cursive;
-            color: rgb(255, 255, 255);
-            font-size: 1.4vw;
-            padding-left: 1vw;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #000000;
-            position: relative;
-            width: 100vw;
-            margin: 0;
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-        .logo {
-            margin-left: 1.5vw;
-        }
-
-        .nav {
-            flex: 1;
-            text-align: right;
-            margin-right: 1vw;
-        }
-
-        .nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: rgb(255, 255, 255);
-            font-size: 1vw;
-            font-weight: bold;
-            padding: 10px;
-        }
-
-        .profile {
-            position: relative;
-        }
-
-        .profile-icon {
-            width: 3vw;
-            cursor: pointer;
-            margin-right: 1.5vw;
-            border-radius: 50%;
-        }
-    </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="logo">
-            <p class="quiz">Quiz Sphere</p>
-        </div>
-        <nav class="nav">
-            <a href="../Home_page/index.php">Home</a>
-            <a href="../contact_us/contact.php">Contact Us</a>
-            <a href="../about_us/about.php">About Us</a>
-        </nav>
-    </header>
+    <?php
+    session_start();
+    include '../Navber/teachnav.php';
+    ?>
+
     <h1> About Us </h1>
     <div class="class0">
         <h3>OUR MISSION</h3>

@@ -1,23 +1,35 @@
 <?php
-// Connect to the database
-$conn = new mysqli("localhost", "root", "", "college");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
+    exit;
 }
+echo "Paper ID: " . $paper_id;
 
-// Fetch questions from the database
+echo "Logged-in user ID: " . $_SESSION['user_id'];
+echo "User role: " . $_SESSION['role'];
+
+include '../config.php'; // Include the database connection
+
+$student_id = $_SESSION['user_id']; // Get the logged-in student ID
+$paper_id = isset($_GET['paper_id']) ? intval($_GET['paper_id']) : 0;
+
+// Fetch time limit for paper
+$time_limit_query = "SELECT time_limit FROM paperdetails WHERE paper_id = '$paper_id'";
+$time_limit_result = mysqli_query($conn, $time_limit_query);
+$paper_result = mysqli_fetch_assoc($time_limit_result);
+$time_limit = $paper_result['time_limit']; // Get the time limit in minutes
+
+// Fetch exam questions and options from the exam_questions table
+$questions_query = "SELECT * FROM exam_questions WHERE paper_id = '$paper_id'";
+$questions_result = mysqli_query($conn, $questions_query);
+
+// Initialize question data
 $questions = [];
-$sql = "SELECT * FROM questions LIMIT 10"; // Adjust the limit as needed
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $questions[] = $row;
-    }
+while ($row = mysqli_fetch_assoc($questions_result)) {
+    $questions[] = $row;
 }
-
-$conn->close();
+$total_questions = count($questions);
 ?>
 
 <!DOCTYPE html>
@@ -26,104 +38,132 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interface</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Exam</title>
     <style>
-        /* Add styles here as per the previous example */
+        /* Basic CSS for exam layout */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+        }
+
+        .question-options {
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+        }
     </style>
 </head>
 
 <body>
-    <div class="quiz-container">
-        <div class="timer">Time Left: <span id="time">39:30 mins</span></div>
-        <h2>Question Paper Set 1</h2>
 
-        <?php foreach ($questions as $index => $question): ?>
-            <div class="question">
-                <p><span class="question-number"><?php echo $index + 1; ?>.</span> <?php echo $question['question']; ?></p>
-                <div class="options">
-                    <label><input type="radio" name="question<?php echo $index; ?>" value="a">
-                        <?php echo $question['option_a']; ?></label>
-                    <label><input type="radio" name="question<?php echo $index; ?>" value="b">
-                        <?php echo $question['option_b']; ?></label>
-                    <label><input type="radio" name="question<?php echo $index; ?>" value="c">
-                        <?php echo $question['option_c']; ?></label>
-                    <label><input type="radio" name="question<?php echo $index; ?>" value="d">
-                        <?php echo $question['option_d']; ?></label>
+    <h1>Exam</h1>
+    <p class="timer">Time Left: <span id="timer"></span></p>
+    <p>Question <span id="current_question_num">1</span> of <span
+            id="total_questions"><?php echo $total_questions; ?></span></p>
+
+
+    <form action="submit_exam.php?paper_id=<?php echo $paper_id; ?>" method="POST">
+
+        <input type="hidden" name="current_question_index" id="current_question_index" value="0">
+        <input type="hidden" name="selected_answer" id="selected_answer" value="">
+
+        <!-- Display the questions dynamically here -->
+        <div id="questions-container">
+            <?php foreach ($questions as $index => $question): ?>
+                <div class="question" id="question-<?php echo $index; ?>" style="display: none;">
+                    <p><?php echo $question['question']; ?></p>
+
+                    <div class="question-options">
+                        <label><input type="radio" name="answer<?php echo $index; ?>"
+                                value="<?php echo $question['option1']; ?>">
+                            <?php echo $question['option1']; ?></label><br>
+
+                        <label><input type="radio" name="answer<?php echo $index; ?>"
+                                value="<?php echo $question['option2']; ?>">
+                            <?php echo $question['option2']; ?></label><br>
+
+                        <label><input type="radio" name="answer<?php echo $index; ?>"
+                                value="<?php echo $question['option3']; ?>">
+                            <?php echo $question['option3']; ?></label><br>
+
+                        <label><input type="radio" name="answer<?php echo $index; ?>"
+                                value="<?php echo $question['option4']; ?>">
+                            <?php echo $question['option4']; ?></label>
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-
-        <div class="navigation">
-            <button class="button save" onclick="saveAndNext()">Save & Next</button>
-            <button class="button review" onclick="markForReview()">Mark for Review</button>
-            <button class="button submit" onclick="submitQuiz()">Submit</button>
+            <?php endforeach; ?>
         </div>
 
-        <div class="status">
-            <div class="status-box attended">Attended: <span id="attended">0</span></div>
-            <div class="status-box unattended">Unattended: <span id="unattended"><?php echo count($questions); ?></span>
-            </div>
-            <div class="status-box marked-for-review">Marked for review: <span id="review">0</span></div>
+        <div>
+            <button type="button" id="prev" onclick="navigate('prev')">Previous</button>
+            <button type="button" id="next" onclick="navigate('next')">Next</button>
+            <button type="submit" name="action" value="submit">Submit</button>
         </div>
-    </div>
+    </form>
 
     <script>
-        let attendedCount = 0;
-        let unattendedCount = <?php echo count($questions); ?>;
-        let reviewCount = 0;
-
-        function updateStatus() {
-            document.getElementById("attended").textContent = attendedCount;
-            document.getElementById("unattended").textContent = unattendedCount;
-            document.getElementById("review").textContent = reviewCount;
-        }
-
-        function saveAndNext() {
-            const options = document.querySelectorAll('input[type="radio"]');
-            let answered = false;
-            options.forEach(option => {
-                if (option.checked) answered = true;
-            });
-
-            if (answered) {
-                attendedCount++;
-                unattendedCount = Math.max(unattendedCount - 1, 0);
-                updateStatus();
-                alert("Answer saved.");
+        // Set timer value from PHP
+        let timer = <?php echo $time_limit; ?> * 60; // Convert minutes to seconds
+        setInterval(function () {
+            if (timer > 0) {
+                timer--;
+                document.getElementById('timer').textContent = `${Math.floor(timer / 60)}:${timer % 60}`;
             } else {
-                alert("Please select an option.");
-            }
-        }
-
-        function markForReview() {
-            reviewCount++;
-            unattendedCount = Math.max(unattendedCount - 1, 0);
-            updateStatus();
-            alert("Question marked for review.");
-        }
-
-        function submitQuiz() {
-            if (confirm("Are you sure you want to submit the quiz?")) {
-                alert("Quiz submitted. Thank you!");
-                // Submit data to the backend using AJAX or a form post
-            }
-        }
-
-        // Timer functionality (decrement every second)
-        let time = 2370; // in seconds, e.g., 39:30 minutes
-        setInterval(() => {
-            if (time <= 0) {
-                alert("Time's up! Submitting quiz.");
-                submitQuiz();
-            } else {
-                time--;
-                let minutes = Math.floor(time / 60);
-                let seconds = time % 60;
-                document.getElementById("time").textContent = ${ minutes }:${ seconds < 10 ? '0' + seconds : seconds } mins;
+                alert("Time's up! Submitting the exam.");
+                document.getElementById('examForm').submit();
             }
         }, 1000);
+
+        let currentQuestionIndex = 0;
+        const totalQuestions = <?php echo $total_questions; ?>;
+
+        // Display the current question and hide others
+        function displayQuestion(index) {
+            for (let i = 0; i < totalQuestions; i++) {
+                const questionElement = document.getElementById('question-' + i);
+                if (i === index) {
+                    questionElement.style.display = 'block';
+                } else {
+                    questionElement.style.display = 'none';
+                }
+            }
+            document.getElementById('current_question_num').textContent = index + 1;
+        }
+
+        function navigate(action) {
+            if (action === 'next') {
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    currentQuestionIndex++;
+                    displayQuestion(currentQuestionIndex);
+                }
+            } else if (action === 'prev') {
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    displayQuestion(currentQuestionIndex);
+                }
+            }
+        }
+
+        // Initialize the first question
+        displayQuestion(currentQuestionIndex);
     </script>
+    <?php
+    // echo "Paper ID: " . $paper_id;
+    
+    ?>
 </body>
 
 </html>

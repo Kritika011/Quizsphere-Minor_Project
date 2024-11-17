@@ -17,17 +17,20 @@
     include_once '../config.php';
 
     // Check if the user is an admin or a teacher
+    // Check if the user is an admin or a teacher
     $user_role = $_SESSION['user_role'] ?? 'guest'; // Default to 'guest' if not set
+    $submitted_by = 'admin'; // Default value
     
+    if ($user_role === 'teacher') {
+        $submitted_by = $_SESSION['user_id'] ?? 'admin'; // Use teacher ID if available, else fallback to admin
+    }
+
     // Form submission handling
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $subject_id = $_POST['subject'];
         $num_of_questions = $_POST['num_of_questions'];
         $marks_per_question = $_POST['marks_per_question'];
         $time_limit = $_POST['time_limit'];
-
-        // Set submitted_by based on user role
-        $submitted_by = ($user_role === 'admin') ? 'admin' : 'teacher';
 
         // Insert data into paperdetails table
         $stmt = $conn->prepare("INSERT INTO paperdetails (subject_id, num_of_questions, marks_per_question, time_limit, submitted_by) VALUES (?, ?, ?, ?, ?)");
@@ -46,6 +49,7 @@
         $stmt->close();
         $conn->close();
     }
+
     ?>
 
 

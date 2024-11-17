@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../Navber/style.css">
 </head <body>
 <?php
+session_start();
 include '../Navber/adminnav.php';
 ?>
 

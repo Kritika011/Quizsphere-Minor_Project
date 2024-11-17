@@ -10,14 +10,6 @@ body {
 .heading1 {
   text-align: center;
 }
-.para1 {
-  float: left;
-  padding-left: 40%;
-}
-.para2 {
-  float: right;
-  padding-right: 40%;
-}
 
 .question-paper {
   width: 60%;
@@ -45,6 +37,107 @@ h2 {
   margin-top: 15px;
   font-size: 18px;
 }
+
+.container {
+  /* width: 80%; */
+  margin: 20px auto;
+  text-align: center;
+}
+
+.heading1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subjects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.subject-card {
+  width: 300px;
+  padding: 20px;
+  background-color: #444;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.subject-card h3,
+.subject-card p {
+  margin: 10px 0;
+}
+
+.subject-card form button {
+  padding: 10px 20px;
+  background-color: maroon;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.subject-card form button:hover {
+  background-color: darkred;
+}
+
+.question-paper {
+  width: 60%;
+  margin: 20px auto;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.question-paper h2,
+.question-paper p {
+  margin: 14px 0;
+}
+
+.para1 {
+  float: left;
+  padding-left: 15%;
+}
+
+.para2 {
+  float: right;
+  padding-right: 15%;
+}
+
+.question-paper ul {
+  /* list-style-type: none; */
+  text-align: left;
+  margin: 20px 100px;
+  width: 80%;
+}
+
+.question-paper ul li {
+  margin: 10px 0;
+}
+
+.question-paper .btn {
+  display: inline-block;
+  padding: 20px 30px;
+  background-color: maroon;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.question-paper .btn:hover {
+  background-color: darkred;
+}
+
+.rule {
+  /* float: left; */
+  padding: 0;
+  /* margin-left: 10px; */
+}
 .heading2 {
   margin-top: 7%;
   padding-left: 40px;
@@ -55,14 +148,14 @@ p {
   font-size: 18px;
 }
 h3 {
-  margin: 2vw;
+  margin: 1.9vw 0vw;
 }
 .btn {
   float: right;
-  height: 40px;
-  width: 100px;
-  margin-right: 4%;
-  background-color: maroon;
+  /* height: 40px; */
+  width: 150px;
+  /* margin-right: 4%; */
+  background-color: rgb(226, 44, 3);
   color: white;
   text-align: center;
   font-size: 16px;

@@ -21,7 +21,7 @@
         <nav class="nav">
             <a href="../Student_home_page/studenthome.php">Home</a>
             <a href="../Student_Allpage/takequiz.php">Take Quiz</a>
-            <a href="../">Result</a>
+            <a href="../Student_Allpage/result.php">Result</a>
             <!-- <a href="../Student_Allpage/questionformat.php">Provide Test</a> -->
             <a href="../main.php">ChatBot</a>
         </nav>
@@ -36,7 +36,7 @@
                     <!-- <li><a href="javascript:void(0);" onclick="openCalculator()" id="openBtn">Calculator</a>
                         </li> -->
                     <li><a href="../about_us/about.php">About Us</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="../Navber/logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>

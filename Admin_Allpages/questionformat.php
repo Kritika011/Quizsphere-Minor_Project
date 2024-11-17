@@ -12,6 +12,7 @@
 
 <body>
     <?php
+    session_start();
     include '../Navber/adminnav.php';
     include_once '../config.php';
 

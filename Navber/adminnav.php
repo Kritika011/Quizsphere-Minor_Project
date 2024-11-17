@@ -69,10 +69,10 @@
             <!-- <h1>QuizWhiz</h1> -->
         </div>
         <nav class="nav">
-            <a href="../Admin_Allpages/adminhome.php">Home</a>
+            <a href="../admin_home_page/adminhome.php">Home</a>
             <a href="../Admin_Allpages/subjectaddition.php">Subject_addtion</a>
             <a href="../Admin_Allpages/questionformat.php">Provide Test</a>
-            <a href="#">Contributions</a>
+            <a href="../Admin_Allpages/takequiz.php">Contributions</a>
             <!-- <div class="dropdown">
                 <button class="dropbtn">
                     <i class="fa fa-caret-down"></i>
@@ -96,7 +96,7 @@
                     <li><a href="#">Account Setting</a></li>
                     <li><a href="../Contact_us/contact.php">Contact Us</a></li>
                     <li><a href="../about_us/about.php">About Us</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="../Navber/logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
