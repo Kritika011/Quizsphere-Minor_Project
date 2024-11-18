@@ -9,23 +9,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $role = htmlspecialchars($_POST['role']);
 
-    if ($role === 'admin') {
-        // Store admin in a separate table
-        $query = $conn->prepare("INSERT INTO admins (name, email, password, verified) VALUES (?, ?, ?, 0)");
-        $query->bind_param("sss", $name, $email, $password);
-    } else {
-        // Store students and teachers in the 'users' table
-        $query = $conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
-        $query->bind_param("ssss", $name, $email, $password, $role);
-    }
+    try {
+        if ($role === 'admin') {
+            // Store admin in a separate table
+            $query = $conn->prepare("INSERT INTO admins (name, email, password, verified) VALUES (?, ?, ?, 0)");
+            $query->bind_param("sss", $name, $email, $password);
+            $_SESSION['message'] = "Admin signup successful. Please wait for verification.";
+            $redirect_page = "../Registration/adminregistration.php"; // Admin registration page
+        } else {
+            // Store students and teachers in the 'users' table
+            $query = $conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
+            $query->bind_param("ssss", $name, $email, $password, $role);
 
-    if ($query->execute()) {
-        $_SESSION['message'] = "Signup successful. Please log in.";
-    } else {
-        $_SESSION['error'] = "Signup failed. Please try again.";
+            // Determine the redirect page based on role
+            if ($role === 'student') {
+                $_SESSION['message'] = "Student signup successful. Please complete your registration.";
+                $redirect_page = "../Registration/registration.php"; // Student registration page
+            } elseif ($role === 'teacher') {
+                $_SESSION['message'] = "Teacher signup successful. Please complete your registration.";
+                $redirect_page = "../Registration/teachregister.php"; // Teacher registration page
+            }
+        }
+
+        $query->execute();
+        header("Location: $redirect_page"); // Redirect to the respective page
+        exit(); // Ensure no further code is executed
+    } catch (mysqli_sql_exception $e) {
+        if ($e->getCode() == 1062) { // Error code for duplicate entry
+            $_SESSION['error'] = "Email ID already registered. Please enter a different Email ID.";
+        } else {
+            $_SESSION['error'] = "Signup failed. Please try again.";
+        }
+        header("Location: ../Home_page/index.php"); // Redirect to home page on error
+        exit(); // Ensure no further code is executed
     }
 }
+?>
 
+
+
+<?php
 
 // Login handling
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin'])) {
@@ -109,6 +132,24 @@ if (isset($_SESSION['unverified_admin']) && $_SESSION['unverified_admin']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Quiz Website</title>
+    <style>
+        .message-box {
+            position: fixed;
+            /* bottom: 20px; */
+            top: 0;
+            left: 30%;
+            margin: auto;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            width: 470px;
+            padding: 27px 20px;
+            background-color: red;
+            color: white;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
@@ -185,10 +226,28 @@ if (isset($_SESSION['unverified_admin']) && $_SESSION['unverified_admin']) {
         </div>
     </div>
 
+    <?php if (isset($_SESSION['error'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const messageBox = document.createElement('div');
+                messageBox.className = 'message-box';
+                messageBox.innerText = "<?php echo $_SESSION['error']; ?>";
 
+                document.body.appendChild(messageBox);
+
+                setTimeout(() => {
+                    messageBox.remove();
+                }, 7000); // Auto-hide after 5 seconds
+            });
+        </script>
+        <?php unset($_SESSION['error']); endif; ?>
     <script src="scripts.js"></script>
 
-
+    <?php
+    // if (isset($_SESSION['error'])) {
+//     echo "Error: " . $_SESSION['error']; // For debugging
+// }
+    ?>
 </body>
 
 </html>

@@ -19,11 +19,10 @@
     <h1> About Us </h1>
     <div class="class0">
         <h3>OUR MISSION</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit esse, odio a, iste ipsam at ab quos
-            reprehenderit odit ea eum explicabo veritatis voluptatum voluptatem eaque vero, veniam natus nulla.
-            Voluptatem accusamus neque porro obcaecati dolore reprehenderit distinctio alias sit laudantium deserunt
-            nisi debitis fuga recusandae incidunt beatae, totam, pariatur, dolores doloribus. Molestiae repudiandae
-            autem ea accusantium velit, cum unde.</p>
+        <p>To empower learners of all ages by providing a comprehensive platform of high-quality multiple choice
+            quizzes, covering a wide range of subjects from various academic disciplines to general knowledge. Our
+            mission is to enhance knowledge retention, critical thinking, and problem-solving skills through engaging,
+            fun and interactive learning experiences.</p>
     </div>
     <div class="container">
         <h1> Know Our team</h1>
@@ -53,21 +52,21 @@
 
     <div class="class1">
         <h3>Why Choose Us?</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit esse, odio a, iste ipsam at ab quos
-            reprehenderit odit ea eum explicabo veritatis voluptatum voluptatem eaque vero, veniam natus nulla.
-            Voluptatem accusamus neque porro obcaecati dolore reprehenderit distinctio alias sit laudantium deserunt
-            nisi debitis fuga recusandae incidunt beatae, totam, pariatur, dolores doloribus. Molestiae repudiandae
-            autem ea accusantium velit, cum unde.</p>
+        <p>
+            Our core objectives are to curate a vast library of accurate and up-to-date multiple-choice questions,
+            develop user-friendly and accessible quiz interfaces, offer personalized learning experiences through
+            adaptive quizzes and tailored recommendations, foster a supportive and collaborative learning community, and
+            continuously innovate and improve our platform by incorporating cutting-edge educational technologies
+            and user feedback.</p>
     </div>
     <br>
     <div class="class2">
         <h3>Who Are We?</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet veritatis excepturi quaerat
-            accusamus consequatur facere nam dicta saepe necessitatibus, ipsum vitae qui neque suscipit, aut vel iure
-            rerum doloremque!
-            Porro eveniet, facilis ullam est laborum ipsum nulla hic ea fugit, obcaecati, voluptatibus natus! Earum
-            quibusdam maxime nobis corrupti. Magni quidem rem quod, reiciendis aliquam aliquid iusto perferendis
-            dignissimos. Porro?</p>
+        <p>
+            We are a group of computer application students dedicated to creating innovative learning tools, eager to
+            share the joy of learning and striving for excellence to make a difference. We are building a platform to
+            empower leaners and shape the future of education and also to help others to ace their exams and expand
+            their knowledge base</p>
     </div>
 
 </body>

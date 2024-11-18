@@ -63,46 +63,13 @@
 
 
 
-            <!-- Student Fields -->
-            <div id="studentFields">
-                <div class="select-box">
-                    <label>Course</label>
-                    <select name="course">
-                        <option hidden>Choose Course</option>
-                        <option value="bca">BCA</option>
-                        <option value="bba">BBA</option>
-                        <option value="mca">MCA</option>
-                    </select>
-                </div>
-                <div class="select-box">
-                    <label>Semester</label>
-                    <select name="semester">
-                        <option hidden>Choose Semester</option>
-                        <option value="1st">1st</option>
-                        <option value="2nd">2nd</option>
-                        <option value="3rd">3rd</option>
-                        <option value="4th">4th</option>
-                        <option value="5th">5th</option>
-                        <option value="6th">6th</option>
-                    </select>
-                </div>
-                <!-- <div class="input-box">
-                    <label>University Roll No.</label>
-                    <input type="text" placeholder="Enter University Roll No." name="rollno" required>
-                </div> -->
+            <!-- Admin Fields -->
+            <div id="adminFields" style="display: none;">
                 <div class="input-box">
-                    <label>Institute Name</label>
-                    <input type="text" placeholder="Enter Institute Name" name="institute" required>
-                </div>
-                <div class="input-box">
-                    <label>Upload Profile Image :</label>
+                    <label>Upload Profile Image : </label>
                     <input type="file" name="id_card" class="id" accept="image/*" required>
                 </div>
             </div>
-
-            </div>
-
-
 
             <button type="submit">Submit</button>
         </form>
