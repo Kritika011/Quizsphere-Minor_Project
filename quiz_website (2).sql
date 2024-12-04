@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 03:26 PM
+-- Generation Time: Dec 04, 2024 at 02:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `quiz_website`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admindetails`
+--
+
+CREATE TABLE `admindetails` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `phone_no` varchar(15) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` enum('male','female','other','prefer-not') NOT NULL,
+  `institute` varchar(100) NOT NULL,
+  `profile_image` varchar(255) NOT NULL,
+  `verification_status` enum('pending','approved','rejected') DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admindetails`
+--
+
+INSERT INTO `admindetails` (`id`, `user_id`, `phone_no`, `dob`, `gender`, `institute`, `profile_image`, `verification_status`) VALUES
+(1, 16, '7056084925', '2004-02-29', 'male', 'tih', '../uploads/swapnadeep.jpeg', 'pending'),
+(2, 17, '9052036852', '1960-02-14', 'male', 'tih', '../uploads/suman.jpg', 'pending');
 
 -- --------------------------------------------------------
 
@@ -41,11 +66,10 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `verified`, `role`) VALUES
-(1, 'Kritika Pramanik', 'pramanikkritika46@gmail.com', 'password', 1, 'admin'),
-(2, 'sohini das ', 'pramanikrupai46@gmail.com', '$2y$10$IqOPjoMXH/fl9ZQ9JLwqJu9MTC.YB0GmZaGn9d8NpQ/8CEo1HTK9e', 1, 'admin'),
-(3, 'Pauli Mallick', 'paulirimi@gmail.com', '$2y$10$Ix9qAJTPn8MJV/b05azc/OY27H1p9AWqo5N60vv5bFGEs3B4wW4EC', 0, 'admin'),
-(5, 'Kritika pramanik ', 'kritika@gmail.com', '$2y$10$gXW37zPv9sRPQYA1P1cqw.Igf/xhDa/3Nq9nM29cpHIDtN9./gEgi', 0, 'admin'),
-(6, 'sohini das ', 'sohini@gmail.com', '$2y$10$mUTeDh0PtmM9mDSQVfI6a.DoKV4dufeeejD8hg.TitFfL6EL2tIsS', 0, 'admin');
+(1, 'Kritika Pramanik', 'pramanikkritika46@gmail.com', '$2y$10$F6gKfTU/HwMNyiyNtNTtneRO9HqyZ64c9VtWn2YCBU3a6m4Uh8tsK', 1, 'admin'),
+(2, 'Pauli Mallick', 'paulirimi@gmail.com', '$2y$10$Ix9qAJTPn8MJV/b05azc/OY27H1p9AWqo5N60vv5bFGEs3B4wW4EC', 1, 'admin'),
+(16, 'Swapnadeep Dhar', 'swapnadeep@gmail.com', '$2y$10$BsTYADOc8mgrlGMBkx9jRugB3kMvsZn5i1e6sIEoJOdHacuBX6.hS', 1, 'admin'),
+(17, 'suman das', 'suman@gmail.com', '$2y$10$ZFguKjbhd8JstU0Fq638JeYASoJfXgQhYx8RCL/abn94dAV8mBI1S', 0, 'admin');
 
 -- --------------------------------------------------------
 
@@ -67,83 +91,20 @@ CREATE TABLE `exam_answers` (
 --
 
 INSERT INTO `exam_answers` (`id`, `student_id`, `question_id`, `answer`, `status`, `is_correct`) VALUES
-(14, 4, 1, 'A', 'attended', 0),
-(15, 4, 2, 'A', '', 0),
-(16, 4, 3, '1', 'attended', 0),
-(17, 4, 4, 'P', 'attended', 0),
-(18, 4, 5, 'a', 'attended', 0),
-(19, 4, 6, 'O', 'attended', 0),
-(20, 4, 7, '', '', 0),
-(21, 4, 11, 'O', '', 0),
-(22, 4, 12, 'N', '', 0),
-(23, 4, 1, 'O', 'attended', 1),
-(24, 4, 2, '1', 'attended', 0),
-(25, 4, 3, 'P', 'attended', 0),
-(26, 4, 4, '', 'unattended', 0),
-(27, 4, 5, 'O', 'attended', 0),
-(28, 4, 6, '', 'unattended', 0),
-(29, 4, 7, '', 'unattended', 0),
-(30, 4, 8, '', 'unattended', 0),
-(31, 4, 9, '', 'unattended', 0),
-(32, 4, 10, '', 'unattended', 0),
-(33, 4, 11, '', 'unattended', 0),
-(34, 4, 12, '', 'unattended', 0),
-(35, 4, 1, 'N', 'attended', 0),
-(36, 4, 2, '1', 'attended', 0),
-(37, 4, 3, 'P', 'attended', 0),
-(38, 4, 4, 'a', 'attended', 0),
-(39, 4, 5, '', 'unattended', 0),
-(40, 4, 6, '', 'unattended', 0),
-(41, 4, 7, '', 'unattended', 0),
-(42, 4, 8, '', 'unattended', 0),
-(43, 4, 9, '', 'unattended', 0),
-(44, 4, 10, '', 'unattended', 0),
-(45, 4, 11, '', 'unattended', 0),
-(46, 4, 12, '', 'unattended', 0),
-(47, 4, 1, 'O', 'attended', 1),
-(48, 4, 2, '1', 'attended', 0),
-(49, 4, 3, '', 'unattended', 0),
-(50, 4, 4, '', 'unattended', 0),
-(51, 4, 5, '', 'unattended', 0),
-(52, 4, 6, '', 'unattended', 0),
-(53, 4, 7, '', 'unattended', 0),
-(54, 4, 8, '', 'unattended', 0),
-(55, 4, 9, '', 'unattended', 0),
-(56, 4, 10, '', 'unattended', 0),
-(57, 4, 11, '', 'unattended', 0),
-(58, 4, 12, '', 'unattended', 0),
-(59, 4, 1, 'N', 'attended', 0),
-(60, 4, 2, '1', 'attended', 0),
-(61, 4, 3, 'B', 'attended', 0),
-(62, 4, 4, '', 'unattended', 0),
-(63, 4, 5, '', 'unattended', 0),
-(64, 4, 6, '', 'unattended', 0),
-(65, 4, 7, '', 'unattended', 0),
-(66, 4, 8, '', 'unattended', 0),
-(67, 4, 9, '', 'unattended', 0),
-(68, 4, 10, '', 'unattended', 0),
-(69, 4, 11, '', 'unattended', 0),
-(70, 4, 12, '', 'unattended', 0),
-(71, 4, 13, '', 'unattended', 0),
-(72, 4, 14, '', 'unattended', 0),
-(73, 4, 15, '', 'unattended', 0),
-(74, 4, 16, '', 'unattended', 0),
-(75, 4, 17, '', 'unattended', 0),
-(76, 4, 18, '', 'unattended', 0),
-(77, 4, 1, 'N', 'attended', 0),
-(78, 4, 2, '1', 'attended', 0),
-(79, 4, 3, '', 'unattended', 0),
-(80, 4, 4, '', 'unattended', 0),
-(81, 4, 5, '', 'unattended', 0),
-(82, 4, 6, '', 'unattended', 0),
-(83, 4, 7, '', 'unattended', 0),
-(84, 4, 8, '', 'unattended', 0),
-(85, 4, 9, '', 'unattended', 0),
-(86, 4, 10, '', 'unattended', 0),
-(87, 4, 11, '', 'unattended', 0),
-(88, 4, 12, '', 'unattended', 0),
-(89, 4, 20, '', 'unattended', 0),
-(90, 4, 20, '', 'unattended', 0);
+(1, 79, 1, 'N', 'attended', 0),
+(2, 79, 2, '1', 'attended', 0),
+(3, 79, 3, 'P', 'attended', 0),
+(4, 79, 4, 'o', 'attended', 0),
+(5, 79, 5, '', 'unattended', 0),
+(6, 79, 6, '', 'unattended', 0),
+(7, 79, 7, '4', 'attended', 0),
+(8, 79, 8, 'O', 'attended', 0),
+(9, 79, 9, 'A', 'attended', 0),
+(10, 79, 10, 'A', 'attended', 0),
+(11, 79, 11, 'N', 'attended', 0),
+(12, 79, 12, '', 'unattended', 0),
+(13, 79, 20, '', 'unattended', 0),
+(14, 79, 20, '', 'unattended', 0);
 
 -- --------------------------------------------------------
 
@@ -186,7 +147,14 @@ INSERT INTO `exam_questions` (`question_id`, `paper_id`, `question`, `option1`, 
 (17, 2, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum'),
 (18, 2, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum'),
 (19, 7, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum'),
-(20, 8, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum');
+(20, 8, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum'),
+(21, 9, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum'),
+(22, 9, 'First generation computers had which of the following?', 'Magnetic tapes', 'Transistors', 'ICs', 'Vaccum tubes & Magnetic drum', 'Vaccum tubes & Magnetic drum'),
+(23, 10, 'Which of these pins will allow to activate and deactivate a multiplexer?', 'Enable pin', 'Selection pin', 'Logic pin', 'Preset pin', 'Enable pin'),
+(24, 10, 'Which of the following options are correct for a 4×1 multiplexer?', 'It has four 3 – input AND gates', 'It has four 2 – input AND gates', 'It has one 3 – input AND gate', ' It has one 3 – input AND gate', ' It has four 3 – input AND gates'),
+(25, 10, ' A priority encoder has four inputs I0, I1, I2, and I3 where I3 has the highest priority and I0 has the least priority. If I2 = 1, what will be the output?', '00', '01', '10', '11', '10'),
+(26, 10, 'Which of the following options represent the correct reduction of XYZ + XYZ ?', '0', ' YZ', 'X + X', '2YZ', ' YZ'),
+(27, 10, 'What frequency division of the pulsed clock signal can be obtained by connecting 4 flip – flops in cascade?', '2', '4', '8', '16', '16');
 
 -- --------------------------------------------------------
 
@@ -211,7 +179,9 @@ INSERT INTO `paperdetails` (`paper_id`, `subject_id`, `num_of_questions`, `marks
 (1, 3, 12, 1, 30, 'admin'),
 (2, 3, 2, 1, 2, 'admin'),
 (7, 6, 1, 1, 2, '1'),
-(8, 5, 1, 1, 10, 'admin');
+(8, 5, 1, 1, 10, 'admin'),
+(9, 5, 2, 1, 10, '3'),
+(10, 3, 5, 1, 5, '83');
 
 -- --------------------------------------------------------
 
@@ -234,15 +204,34 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`result_id`, `student_id`, `paper_id`, `total_questions`, `correct_answers`, `score`, `total_attended`) VALUES
-(2, 4, 1, 12, 0, 0, 9),
-(3, 4, 1, 12, 1, 1, 4),
-(4, 4, 1, 12, 0, 0, 4),
-(5, 4, 1, 12, 1, 1, 2),
-(6, 4, 1, 12, 0, 0, 3),
-(7, 4, 2, 6, 0, 0, 0),
-(8, 4, 1, 12, 0, 0, 2),
-(9, 4, 8, 1, 0, 0, 0),
-(10, 4, 8, 1, 0, 0, 0);
+(1, 79, 1, 12, 0, 0, 9),
+(2, 79, 8, 1, 0, 0, 0),
+(3, 79, 8, 1, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `studentdetails`
+--
+
+CREATE TABLE `studentdetails` (
+  `student_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `phone_no` varchar(15) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` enum('male','female','other','prefer-not') NOT NULL,
+  `course` varchar(50) NOT NULL,
+  `semester` varchar(10) NOT NULL,
+  `institute` varchar(255) NOT NULL,
+  `profile_image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `studentdetails`
+--
+
+INSERT INTO `studentdetails` (`student_id`, `user_id`, `phone_no`, `dob`, `gender`, `course`, `semester`, `institute`, `profile_image`) VALUES
+(2, 79, '8583033646', '2003-12-11', 'female', 'bca', '5th', 'tih', '../uploads/WhatsApp Image 2023-08-10 at 23.37.01.jpg');
 
 -- --------------------------------------------------------
 
@@ -270,7 +259,30 @@ INSERT INTO `subjects` (`subject_id`, `subject_name`, `subject_code`, `course`, 
 (4, 'Business Systems and Applications ', 'BCAC102', 'BCA', 1, 'usiness systems and applications (BSA) are software and tools that help businesses improve their efficiency, competitiveness, and innovation.', '../uploads/download (1).jpeg', 'admin'),
 (5, 'Principle of Management', 'BBA101', 'BBA', 1, 'Management principles are a set of guidelines that help organizations use their resources efficiently to achieve their goals.', '../uploads/download (2).jpeg', 'admin'),
 (6, 'c program', 'bcac106', 'BCA', 2, 'c ', '../uploads/download.jpeg', 'admin'),
-(8, 'Business Economics', 'BBA102', 'BBA', 1, 'Business economics is a field of applied economics that studies the financial, organizational, market-related, and environmental issues faced by corporations. Business economics encompasses subjects such as the concept of scarcity, production factors, distribution, and consumption.', '../uploads/busi_economics.jpg', 'admin');
+(7, 'Business Economics', 'BBA102', 'BBA', 1, 'Business economics is a field of applied economics that studies the financial, organizational, market-related, and environmental issues faced by corporations. Business economics encompasses subjects such as the concept of scarcity, production factors, distribution, and consumption.', '../uploads/busi_economics.jpg', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacherdetails`
+--
+
+CREATE TABLE `teacherdetails` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `phone_no` varchar(15) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` enum('male','female','other','prefer-not') NOT NULL,
+  `institute` varchar(100) NOT NULL,
+  `profile_image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `teacherdetails`
+--
+
+INSERT INTO `teacherdetails` (`id`, `user_id`, `phone_no`, `dob`, `gender`, `institute`, `profile_image`) VALUES
+(1, 83, '8583033646', '2003-12-11', 'female', 'tih', '../uploads/IMG_20241114_090739_646.jpg');
 
 -- --------------------------------------------------------
 
@@ -291,15 +303,19 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'Kritika pramanik ', 'pramanikkritika46@gmail.com', '$2y$10$MUto1wIix06fw0uNiq5TheC0pCPFNxSKSl05zV12UEog5w7Pzqa1G', 'teacher'),
-(2, 'swapnadeep dhar', 'swapna33@gmail.com', '$2y$10$D.NEDXqf4eW0B3ckWR.iN.VDBPcwrUkSCVP7LRqZIHPghIl67GLjS', 'student'),
-(3, 'sohini das ', 'sohini@gmail.com', '$2y$10$5pwXNJ.5xlb6fkdfu3Ov8.himwmNnw4y6P.0LLpy/le9EIqYB1iXm', 'teacher'),
-(4, 'prabir pramanik', 'pragg@gmail.com', '$2y$10$pMKjp3/vkMOS8A.KYpopJuclIciHuTzYfL7phfxir/lLEcvefusP2', 'student'),
-(5, 'pauli mallick', 'pauli@gmail.com', '$2y$10$Qy.YnJgDtlGebWdewm0nSebMooHbri45OuthYyRTYb0aXEZ8EetHC', 'teacher');
+(79, 'Kritika Pramanik', 'pramanikkritika46@gmail.com', '$2y$10$lrZ8.87JRu3ZvXIlOSP5iuszipC0wSBsyMWPTXndOJ15fIFs2chy2', 'student'),
+(83, 'Kritika Pramanik', 'pramanikrupai46@gmail.com', '$2y$10$ljaJ92U7ibiaSRUFDs3wJOke8R.TcdKRJdFBcojyxjWixio25GyMe', 'teacher');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admindetails`
+--
+ALTER TABLE `admindetails`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `admins`
@@ -313,8 +329,8 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `exam_answers`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `question_id` (`question_id`);
+  ADD KEY `question_id` (`question_id`),
+  ADD KEY `student_id` (`student_id`) USING BTREE;
 
 --
 -- Indexes for table `exam_questions`
@@ -335,8 +351,15 @@ ALTER TABLE `paperdetails`
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`result_id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `paper_id` (`paper_id`);
+  ADD KEY `paper_id` (`paper_id`),
+  ADD KEY `student_id` (`student_id`) USING BTREE;
+
+--
+-- Indexes for table `studentdetails`
+--
+ALTER TABLE `studentdetails`
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `subjects`
@@ -344,6 +367,13 @@ ALTER TABLE `results`
 ALTER TABLE `subjects`
   ADD PRIMARY KEY (`subject_id`),
   ADD UNIQUE KEY `subject_code` (`subject_code`);
+
+--
+-- Indexes for table `teacherdetails`
+--
+ALTER TABLE `teacherdetails`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `user`
@@ -357,34 +387,46 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `admindetails`
+--
+ALTER TABLE `admindetails`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `exam_answers`
 --
 ALTER TABLE `exam_answers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `exam_questions`
 --
 ALTER TABLE `exam_questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `paperdetails`
 --
 ALTER TABLE `paperdetails`
-  MODIFY `paper_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `paper_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `result_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `studentdetails`
+--
+ALTER TABLE `studentdetails`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -393,14 +435,26 @@ ALTER TABLE `subjects`
   MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `teacherdetails`
+--
+ALTER TABLE `teacherdetails`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `admindetails`
+--
+ALTER TABLE `admindetails`
+  ADD CONSTRAINT `admindetails_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `exam_answers`
@@ -425,8 +479,20 @@ ALTER TABLE `paperdetails`
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`paper_id`) REFERENCES `paperdetails` (`paper_id`);
+
+--
+-- Constraints for table `studentdetails`
+--
+ALTER TABLE `studentdetails`
+  ADD CONSTRAINT `studentdetails_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `teacherdetails`
+--
+ALTER TABLE `teacherdetails`
+  ADD CONSTRAINT `teacherdetails_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
