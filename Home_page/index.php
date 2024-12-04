@@ -4,22 +4,55 @@ require '../config.php';
 
 // Signup handling
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
-    $name = htmlspecialchars($_POST['name']);
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $role = htmlspecialchars($_POST['role']);
+    // Sanitize and validate input data
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $password = password_hash(trim($_POST['password']), PASSWORD_BCRYPT);
+    $role = htmlspecialchars(trim($_POST['role']));
+
+    // Optional: Validate inputs
+    if (empty($name) || empty($email) || empty($_POST['password']) || empty($role)) {
+        $_SESSION['error'] = "All fields are required.";
+        header("Location: ../Home_page/index.php");
+        exit();
+    }
 
     try {
         if ($role === 'admin') {
             // Store admin in a separate table
             $query = $conn->prepare("INSERT INTO admins (name, email, password, verified) VALUES (?, ?, ?, 0)");
+            if (!$query) {
+                throw new Exception("Prepare statement failed: " . $conn->error);
+            }
             $query->bind_param("sss", $name, $email, $password);
+            $query->execute();
+            $user_id = $conn->insert_id;
+
+            // Set session variables
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+            $_SESSION['name'] = $name;
+
             $_SESSION['message'] = "Admin signup successful. Please wait for verification.";
             $redirect_page = "../Registration/adminregistration.php"; // Admin registration page
         } else {
-            // Store students and teachers in the 'users' table
+            // Store students and teachers in the 'user' table
             $query = $conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
+            if (!$query) {
+                throw new Exception("Prepare statement failed: " . $conn->error);
+            }
             $query->bind_param("ssss", $name, $email, $password, $role);
+            $query->execute();
+
+            // Retrieve the inserted user ID
+            $user_id = $conn->insert_id;
+
+            // Set session variables
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+            $_SESSION['name'] = $name;
 
             // Determine the redirect page based on role
             if ($role === 'student') {
@@ -28,24 +61,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
             } elseif ($role === 'teacher') {
                 $_SESSION['message'] = "Teacher signup successful. Please complete your registration.";
                 $redirect_page = "../Registration/teachregister.php"; // Teacher registration page
+            } else {
+                // Handle unexpected roles
+                $_SESSION['error'] = "Invalid role selected.";
+                header("Location: ../Home_page/index.php");
+                exit();
             }
         }
 
-        $query->execute();
-        header("Location: $redirect_page"); // Redirect to the respective page
+        // Redirect to the respective registration page
+        header("Location: $redirect_page");
         exit(); // Ensure no further code is executed
     } catch (mysqli_sql_exception $e) {
         if ($e->getCode() == 1062) { // Error code for duplicate entry
             $_SESSION['error'] = "Email ID already registered. Please enter a different Email ID.";
         } else {
-            $_SESSION['error'] = "Signup failed. Please try again.";
+            $_SESSION['error'] = "Signup failed: " . $e->getMessage();
         }
         header("Location: ../Home_page/index.php"); // Redirect to home page on error
         exit(); // Ensure no further code is executed
     }
 }
 ?>
-
 
 
 <?php
@@ -171,22 +208,27 @@ if (isset($_SESSION['unverified_admin']) && $_SESSION['unverified_admin']) {
         </div>
     <?php endif; ?>
     <div class="container">
+
         <div class="left-container">
             <div class="typewriter-container">
                 <div class="typewriter-text">Welcome <span> to the Quiz Website</span></div>
             </div>
             <p>Join us today and test your knowledge across various subjects!</p>
             <div class="signup-buttons">
-                <button onclick="showPopup('student')"> Sign in</button>
-                <button onclick="showPopup('Teacher')"> Sign up</button>
+                <button onclick="showPopup('signin')">Sign In</button>
+                <button onclick="showPopup('signup')">Sign Up</button>
             </div>
+
         </div>
+
         <div class="right-container">
             <div class="slider" style="max-width: 680px;">
                 <img class="mySlides" src="image/0_DI4ointlcukqBf0s.jpg" style="width:100%">
                 <img class="mySlides" src="image/istockphoto-1146488500-612x612.jpg" style="width:100%">
             </div>
         </div>
+
+
         <div id="popupOverlay" class="popup-overlay" onclick="hidePopup()"></div>
         <div id="popupBox" class="popup-box">
             <span class="close-btn" onclick="hidePopup()">&times;</span>
@@ -237,7 +279,7 @@ if (isset($_SESSION['unverified_admin']) && $_SESSION['unverified_admin']) {
 
                 setTimeout(() => {
                     messageBox.remove();
-                }, 7000); // Auto-hide after 5 seconds
+                }, 9000); // Auto-hide after 5 seconds
             });
         </script>
         <?php unset($_SESSION['error']); endif; ?>

@@ -12,14 +12,14 @@
 
 <body>
     <?php
-    session_start();
+    // session_start();
     include '../Navber/teachnav.php';
     include_once '../config.php';
 
     // Check if the user is an admin or a teacher
     // Check if the user is an admin or a teacher
     $user_role = $_SESSION['user_role'] ?? 'guest'; // Default to 'guest' if not set
-    $submitted_by = 'admin'; // Default value
+    $submitted_by = $_SESSION['user_id']; // Default value
     
     if ($user_role === 'teacher') {
         $submitted_by = $_SESSION['user_id'] ?? 'admin'; // Use teacher ID if available, else fallback to admin

@@ -1,3 +1,38 @@
+<?php
+session_start();
+require '../config.php';
+
+// Check if user data is available in the session
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    // Redirect to login page or show an error if not logged in
+    header("Location: ../Home_page/index.php");
+    exit();
+}
+
+// Retrieve session variables
+$user_id = $_SESSION['user_id'];
+$role = $_SESSION['role'];
+
+// Query to get name from user table and profile_image from admindetails table
+$query = $conn->prepare("SELECT u.name, a.profile_image FROM admins u 
+                        JOIN admindetails a ON u.id = a.user_id
+                        WHERE u.id = ?");
+$query->bind_param("i", $user_id);
+$query->execute();
+$result = $query->get_result();
+
+if ($result->num_rows > 0) {
+    // Fetch user and admin details
+    $user = $result->fetch_assoc();
+    $name = $user['name'];
+    $profile_image = $user['profile_image'];
+} else {
+    // Handle case where user details are not found (optional)
+    $name = "Admin Name"; // Default name
+    $profile_image = "image/icon.jpg"; // Default image
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,100 +45,37 @@
     <link rel="stylesheet" href="style.css">
     <title>QuizSphere</title>
     <link rel="shortcut icon" href="image/icon.jpg" type="image/x-icon">
-    <style>
-        .dropdown {
-            /* float: left; */
-            overflow: hidden;
-        }
-
-        .dropdown .dropbtn {
-            /* font-size: 16px; */
-            border: none;
-            outline: none;
-            color: white;
-            /* padding: 14px 16px; */
-            /* background-color: inherit; */
-            /* font-family: inherit; */
-            margin: 0;
-        }
-
-        .navbar a:hover,
-        .dropdown:hover .dropbtn {
-            /* background-color: red; */
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            /* z-index: 1; */
-        }
-
-        .dropdown-content a {
-            float: none;
-            color: black;
-            /* padding: 12px 16px; */
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
 </head>
 
 <body>
     <header class="header">
         <div class="logo">
-            <!-- <img src="icon.jpg" alt="Logo" width="40"> -->
             <p class="quiz">Quiz Sphere</p>
-            <!-- Or use text for the website name -->
-            <!-- <h1>QuizWhiz</h1> -->
         </div>
         <nav class="nav">
             <a href="../admin_home_page/adminhome.php">Home</a>
             <a href="../Admin_Allpages/subjectaddition.php">Subject_addtion</a>
             <a href="../Admin_Allpages/questionformat.php">Provide Test</a>
             <a href="../Admin_Allpages/takequiz.php">Contributions</a>
-            <!-- <div class="dropdown">
-                <button class="dropbtn">
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div> -->
             <a href="../Admin_Allpages/studentlist.php">User_list</a>
             <a href="../Admin_Allpages/subjectlist.php">subject_list</a>
-            <!-- <a href="https://chatgpt.com/">ChatBot</a> -->
         </nav>
         <div class="profile">
-            <img src="image/icon.jpg" alt="Profile Icon" class="profile-icon" onclick="togglePopup()">
+            <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Icon" class="profile-icon"
+                onclick="togglePopup()">
             <div id="popup" class="popup">
-                <img src="image/icon.jpg" alt="Profile Picture" class="profile-image">
-                <h3 class="names">John Doe</h3>
+                <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" class="profile-image">
+                <h3 class="names"><?php echo htmlspecialchars($name); ?></h3>
                 <ul>
                     <li><a href="#">Account Setting</a></li>
-                    <li><a href="../Contact_us/contact.php">Contact Us</a></li>
-                    <li><a href="../about_us/about.php">About Us</a></li>
+                    <li><a href="../contact_us/contactadmin.php">Contact Us</a></li>
+                    <li><a href="../about_us/aboutadmin.php">About Us</a></li>
                     <li><a href="../Navber/logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
     </header>
-    <footer>
-
-    </footer>
+    <footer></footer>
     <script>
         function togglePopup() {
             var popup = document.getElementById('popup');

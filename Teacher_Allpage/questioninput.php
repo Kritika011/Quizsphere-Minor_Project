@@ -12,7 +12,7 @@
 
 <body>
     <?php
-    session_start();
+    // session_start();
     include_once '../config.php';
     include '../Navber/teachnav.php';
     include_once '../config.php'; ?>

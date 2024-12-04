@@ -1,13 +1,16 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
-    exit;
-}
+// $student_id = $_SESSION['user_id'];
+include '../config.php';
+$_SESSION['user_id'];
+// session_start();
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
+//     exit;
+// }
 
-include '../config.php'; // Include the database connection
+// Include the database connection
 
-$student_id = $_SESSION['user_id']; // Get the logged-in student ID
+// Get the logged-in student ID
 
 // Fetch results for the logged-in student, including the paper title
 $result_query = "

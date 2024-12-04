@@ -1,3 +1,60 @@
+<?php
+session_start();
+require '../config.php';
+
+// Check if user data is available in the session
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
+    // Redirect to signup page or show an error
+    header("Location: ../Home_page/index.php");
+    exit();
+}
+
+// Retrieve session variables
+$user_id = $_SESSION['user_id'];
+$email = $_SESSION['email'];
+$role = $_SESSION['role'];
+$name = $_SESSION['name'];
+
+// Use these variables as needed in your registration logic
+?>
+<?php
+// session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id']; // Get the user ID from the session
+    $phone_no = htmlspecialchars($_POST['phoneno']);
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $course = htmlspecialchars($_POST['course']);
+    $semester = htmlspecialchars($_POST['semester']);
+    $institute = htmlspecialchars($_POST['institute']);
+
+    // Upload profile image
+    $target_dir = "../uploads/"; // Change this to your desired directory
+    $profile_image = $target_dir . basename($_FILES["id_card"]["name"]);
+    move_uploaded_file($_FILES["id_card"]["tmp_name"], $profile_image);
+
+    try {
+        // Insert student details
+        $query = $conn->prepare("
+            INSERT INTO studentdetails 
+            (user_id, phone_no, dob, gender, course, semester, institute, profile_image)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        $query->bind_param("isssssss", $user_id, $phone_no, $dob, $gender, $course, $semester, $institute, $profile_image);
+        $query->execute();
+
+        $_SESSION['message'] = "Registration successful!";
+        header("Location: ../Student_home_page/studenthome.php"); // Redirect to student dashboard
+        exit();
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION['error'] = "Error: " . $e->getMessage();
+        header("Location: ../Registration/registration.php");
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,10 +73,11 @@
 <body>
     <section class="container">
         <h2>Registration Form</h2>
-        <form method="POST" action="register.php" class="form">
+        <form method="POST" enctype="multipart/form-data" class="form">
+
             <div class="input-box">
                 <label>Full Name</label>
-                <input type="text" placeholder="Enter full name" name="name" required>
+                <input type="text" value="<?php echo htmlspecialchars($name); ?>" name="name" readonly>
             </div>
             <div class="input-box">
                 <label>Phone No</label>
@@ -27,11 +85,12 @@
             </div>
             <div class="input-box">
                 <label>Email Address</label>
-                <input type="email" value="<?php echo htmlspecialchars(string: $_SESSION['email']); ?>" name="email">
+                <input type="email" value="   <?php echo htmlspecialchars($email); ?>" name="email" readonly>
             </div>
             <div class="input-box">
                 <label>Role</label>
-                <input type="text" value="<?php echo htmlspecialchars($_SESSION['role']); ?>" name="role" disabled>
+                <input type="text" value="<?php echo htmlspecialchars($_SESSION['role']); ?>" name="role" disabled
+                    readonly>
             </div>
 
             <div class="input-box">
@@ -106,30 +165,9 @@
 
             <button type="submit">Submit</button>
         </form>
+
     </section>
 
-    <!-- <script>
-        // JavaScript for role-based field visibility
-        document.getElementById('role').addEventListener('change', function () {
-            var studentFields = document.getElementById('studentFields');
-            var teacherFields = document.getElementById('teacherFields');
-            var adminFields = document.getElementById('adminFields');
-
-            // Hide all fields initially
-            studentFields.style.display = 'none';
-            teacherFields.style.display = 'none';
-            adminFields.style.display = 'none';
-
-            // Show fields based on selected role
-            if (this.value === 'student') {
-                studentFields.style.display = 'block';
-            } else if (this.value === 'teacher') {
-                teacherFields.style.display = 'block';
-            } else if (this.value === 'admin') {
-                adminFields.style.display = 'block';
-            }
-        });
-    </script> -->
 </body>
 
 </html>

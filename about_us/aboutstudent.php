@@ -12,7 +12,7 @@
 
 <body>
     <?php
-    session_start();
+    // session_start();
     include '../Navber/nav.php';
     ?>
 
@@ -27,28 +27,29 @@
     <div class="container">
         <h1> Know Our team</h1>
         <div class="container1">
-            <div class="flex-items" id="flex-items-1"> <img src="image/images.jpeg" alt="" srcset=""><br> Kritika
-                pramanik</div>
-            <div class="flex-items" id="flex-items-2"><img src="image/images.jpeg" alt="" srcset=""> <br> pauli mallick
+            <div class="flex-items" id="flex-items-1"> <img src="../uploads/Kritika1.jpg" alt="" srcset=""><br> Kritika
+                pramanik <br> 15201222046 </div>
+            <div class="flex-items" id="flex-items-2"><img src="../uploads/pauli.jpg" alt="" srcset=""> <br> pauli
+                mallick <br> 15201222045
             </div>
-            <div class="flex-items" id="flex-items-3"><img src="image/images.jpeg" alt="" srcset=""> <br>Rungshita
-                sarker </div>
+            <div class="flex-items" id="flex-items-3"><img src="../uploads/rungshita.png" alt="" srcset="">
+                <br>Rungshita
+                sarker <br> 15201222039
+            </div>
         </div>
         <br>
         <div class="container2">
-            <div class="flex-items" id="flex-items-4"><img
-                    src="image/pngtree-a-cute-baby-with-beautiful-smile-png-image_12231766.png" alt="" srcset=""> <br>
-                Swapnadeep Dhar </div>
-            <div class="flex-items" id="flex-items-5"><img
-                    src="image/pngtree-a-cute-baby-with-beautiful-smile-png-image_12231766.png" alt="" srcset=""> <br>
-                abhishek sharma</div>
-            <div class="flex-items" id="flex-items-6"><img
-                    src="image/pngtree-a-cute-baby-with-beautiful-smile-png-image_12231766.png" alt="" srcset=""> <br>
-                blah blah blah </div>
+            <div class="flex-items" id="flex-items-4"><img src="../uploads/swapnadeep.jpeg" alt="" srcset=""> <br>
+                Swapnadeep Dhar <br> 15201222023 </div>
+            <div class="flex-items" id="flex-items-5"><img src="../uploads/abhishek.jpg" alt="" srcset=""> <br>
+                abhishek Sharma <br> 15201222053 </div>
+            <div class="flex-items" id="flex-items-6"><img src="../uploads/suman.jpg" alt="" srcset=""> <br>
+                Prof. Suman Das <br> Mentor </div>
 
         </div>
         <BR>
     </div>
+
 
     <div class="class1">
         <h3>Why Choose Us?</h3>

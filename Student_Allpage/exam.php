@@ -4,10 +4,11 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
     exit;
 }
-echo "Paper ID: " . $paper_id;
+// echo "Logged-in user ID: " . $_SESSION['user_id'];
+// echo "User role: " . $_SESSION['role'];
+// echo "Paper ID: " . $paper_id;
 
-echo "Logged-in user ID: " . $_SESSION['user_id'];
-echo "User role: " . $_SESSION['role'];
+
 
 include '../config.php'; // Include the database connection
 

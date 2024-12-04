@@ -1,7 +1,7 @@
 <?php
-session_start();
+// session_start();
 include_once '../config.php';
-
+include '../Navber/teachnav.php';
 // Ensure the session is valid and the user is a teacher
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
     echo "You are not authorized to view this page.";
@@ -41,7 +41,7 @@ $result = $stmt->get_result();
 
 <body>
     <?php
-    include '../Navber/teachnav.php';
+
     ?>
     <h3 class="heading1">Paper Details submitted by you</h3>
 

@@ -12,7 +12,7 @@
 
 <body>
     <?php
-    session_start();
+    // session_start();
     include '../config.php';  // Include your database connection file
     include '../Navber/adminnav.php';
     ?>

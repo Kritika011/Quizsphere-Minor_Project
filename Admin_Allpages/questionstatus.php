@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include '../config.php';  // Include your database connection file
 
 // Assuming the subject_id is passed as a GET parameter

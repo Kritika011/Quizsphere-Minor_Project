@@ -1,6 +1,15 @@
 <?php
 $editMode = isset($_GET['edit']); // Check if the page is in edit mode
 ?>
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
+    exit;
+}
+// echo "Logged-in user ID: " . $_SESSION['user_id'];
+// echo "User role: " . $_SESSION['role'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">

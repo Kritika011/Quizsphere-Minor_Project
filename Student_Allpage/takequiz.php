@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 // if (!isset($_SESSION['user_id'])) {
 //     header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
 //     exit;

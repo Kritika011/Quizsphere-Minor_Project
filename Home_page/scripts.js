@@ -69,3 +69,15 @@ function hideUnverifiedPopup() {
     }, 5000); // 5000ms = 5 seconds
 
 
+// Show and Hide Popup for Sign In/Sign Up Forms
+function showPopup(role) {
+    document.getElementById('popupOverlay').style.display = 'flex';
+    document.getElementById('popupBox').style.display = 'block';
+    
+    // Open the Sign-Up form if the role is teacher, otherwise default to Sign In
+    if (role === 'signup') {
+        showSignUp();
+    } else {
+        showSignIn();
+    }
+}

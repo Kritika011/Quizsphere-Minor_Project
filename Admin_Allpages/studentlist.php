@@ -63,7 +63,7 @@
 
 <body>
     <?php
-    session_start();
+    // session_start();
     include '../Navber/adminnav.php';
     ?>
 
