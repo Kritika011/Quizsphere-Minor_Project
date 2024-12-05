@@ -40,31 +40,165 @@ $total_questions = count($questions);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam</title>
+
     <style>
-        /* Basic CSS for exam layout */
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            /* color: white; */
+            line-height: 1.6;
             padding: 20px;
         }
 
-        .question {
-            margin-bottom: 20px;
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 5px;
         }
 
         .timer {
-            font-size: 20px;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: red;
+            color: #ff4747;
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 20px;
         }
 
-        .question-options {
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+
+        }
+
+        .numse {
+            font-size: 1.4rem;
+            margin: 10px 0;
+            color: white
+        }
+
+        #questions-container {
+            margin: auto;
+            align-items: center;
+            /* text-align: center; */
+            justify-content: center;
+            background-color: #222;
+            color: while;
+            margin: 0px 20%;
+        }
+
+        /* Question container */
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .question p {
+            font-size: 1.4rem;
+            font-weight: bold;
             margin-bottom: 15px;
         }
 
-        button {
-            padding: 10px 20px;
-            margin: 5px;
+        .question-options label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 8px;
+            border-radius: 4px;
         }
+
+        .question-options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .question-options input[type="radio"]:hover {
+            background-color: black;
+        }
+
+        /* Button styles */
+        .butts {
+            margin: auto;
+            text-align: center;
+            align-items: center;
+        }
+
+        button {
+
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #prev {
+            background-color: #f44336;
+        }
+
+        #prev:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Form control */
+        #examForm {
+            margin-top: 30px;
+        }
+
+        /* Navigation Buttons Container */
+        .nav-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Adjustments for mobile devices */
+        /* @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .timer {
+                font-size: 1.2rem;
+            }
+
+            .question p {
+                font-size: 1.2rem;
+            }
+
+            .question-options label {
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+        } */
     </style>
 </head>
 
@@ -72,43 +206,47 @@ $total_questions = count($questions);
 
     <h1>Exam</h1>
     <p class="timer">Time Left: <span id="timer"></span></p>
-    <p>Question <span id="current_question_num">1</span> of <span
+    <p class="numse">Question <span id="current_question_num">1</span> of <span
             id="total_questions"><?php echo $total_questions; ?></span></p>
 
 
-    <form action="submit_exam.php?paper_id=<?php echo $paper_id; ?>" method="POST">
+    <form action="submit_exam.php?paper_id=<?php echo $paper_id; ?>" method="POST" id="examForm">
+
 
         <input type="hidden" name="current_question_index" id="current_question_index" value="0">
         <input type="hidden" name="selected_answer" id="selected_answer" value="">
 
         <!-- Display the questions dynamically here -->
         <div id="questions-container">
+
+
             <?php foreach ($questions as $index => $question): ?>
                 <div class="question" id="question-<?php echo $index; ?>" style="display: none;">
                     <p><?php echo $question['question']; ?></p>
 
                     <div class="question-options">
-                        <label><input type="radio" name="answer<?php echo $index; ?>"
-                                value="<?php echo $question['option1']; ?>">
+                        <label><input type="radio" name="answer<?php echo $question['question_id']; ?>" value="option1">
                             <?php echo $question['option1']; ?></label><br>
-
-                        <label><input type="radio" name="answer<?php echo $index; ?>"
-                                value="<?php echo $question['option2']; ?>">
+                        <label><input type="radio" name="answer<?php echo $question['question_id']; ?>" value="option2">
                             <?php echo $question['option2']; ?></label><br>
-
-                        <label><input type="radio" name="answer<?php echo $index; ?>"
-                                value="<?php echo $question['option3']; ?>">
+                        <label><input type="radio" name="answer<?php echo $question['question_id']; ?>" value="option3">
                             <?php echo $question['option3']; ?></label><br>
-
-                        <label><input type="radio" name="answer<?php echo $index; ?>"
-                                value="<?php echo $question['option4']; ?>">
+                        <label><input type="radio" name="answer<?php echo $question['question_id']; ?>" value="option4">
                             <?php echo $question['option4']; ?></label>
                     </div>
                 </div>
             <?php endforeach; ?>
+
+
+
+
+
+
+
         </div>
 
-        <div>
+
+        <div class="butts">
             <button type="button" id="prev" onclick="navigate('prev')">Previous</button>
             <button type="button" id="next" onclick="navigate('next')">Next</button>
             <button type="submit" name="action" value="submit">Submit</button>
@@ -143,6 +281,10 @@ $total_questions = count($questions);
             }
             document.getElementById('current_question_num').textContent = index + 1;
         }
+        if (timer === 0) {
+            alert("Time's up! Submitting the exam.");
+            document.getElementById('examForm').submit();  // This triggers the form submission.
+        }
 
         function navigate(action) {
             if (action === 'next') {
@@ -160,6 +302,13 @@ $total_questions = count($questions);
 
         // Initialize the first question
         displayQuestion(currentQuestionIndex);
+        const options = document.querySelectorAll("input[type='radio']");
+        options.forEach((option) => {
+            option.addEventListener("change", function () {
+                const questionIndex = this.name.replace("answer", "");
+                document.getElementById('selected_answer').value = this.value;  // Store selected answer
+            });
+        });
     </script>
     <?php
     // echo "Paper ID: " . $paper_id;

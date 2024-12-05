@@ -1,34 +1,36 @@
 <?php
-// Database connection
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'college';
+// Include the database connection
+include '../config.php';
 
-$conn = new mysqli($host, $user, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo '<pre>';
+    var_dump($_POST);
+    echo '</pre>';
+
+    $question_id = $_POST['question_id'];
+    $paper_id = $_POST['paper_id'];
+    $option1 = $_POST['option1'];
+    $option2 = $_POST['option2'];
+    $option3 = $_POST['option3'];
+    $option4 = $_POST['option4'];
+    $correct_answer = $_POST['correct_answer'];
+    if (empty($paper_id)) {
+        die('Paper ID is missing!');
+    }
+    // Update the question in the database
+    $query = "UPDATE exam_questions 
+              SET option1 = ?, option2 = ?, option3 = ?, option4 = ?, correct_answer = ? 
+              WHERE question_id = ? AND paper_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssssssi", $option1, $option2, $option3, $option4, $correct_answer, $question_id, $paper_id);
+
+    if ($stmt->execute()) {
+        header("Location: ../Teacher_Allpage/questions.php?paper_id=$paper_id");
+    } else {
+        echo "Error updating question: " . $conn->error;
+    }
+} else {
+    echo "Invalid request.";
 }
-
-// Loop through each question and update database
-foreach ($_POST['question'] as $id => $question) {
-    $option1 = $_POST['option1'][$id];
-    $option2 = $_POST['option2'][$id];
-    $option3 = $_POST['option3'][$id];
-    $option4 = $_POST['option4'][$id];
-    $correct_answer = $_POST['correct_answer'][$id];
-
-    $sql = "UPDATE exam_questions SET 
-                question = '$question', 
-                option1 = '$option1', 
-                option2 = '$option2', 
-                option3 = '$option3', 
-                option4 = '$option4', 
-                correct_answer = '$correct_answer' 
-            WHERE id = $id";
-    $conn->query($sql);
-}
-
-$conn->close();
-header("Location: questions.php"); // Redirect back to view-only mode
 ?>

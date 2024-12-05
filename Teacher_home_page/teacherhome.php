@@ -35,7 +35,7 @@
             <img src="https://icon-library.com/images/create-icon/create-icon-9.jpg" alt="Create Quiz">
             <h3>Create Quiz</h3>
             <p>Build new quizzes with customizable questions for your students.</p>
-            <form action="path_to_create_quiz_page.php" method="get">
+            <form action="../Teacher_Allpage/questionformat.php" method="get">
                 <button class="btn" type="submit">Open</button>
             </form>
         </div>
@@ -43,9 +43,9 @@
         <!-- View Results Card -->
         <div class="action-card">
             <img src="https://icon-library.com/images/results-icon/results-icon-7.jpg" alt="View Results">
-            <h3>View Results</h3>
-            <p>Analyze quiz results and track student progress across subjects.</p>
-            <form action="path_to_view_results_page.php" method="get">
+            <h3>View Contributions</h3>
+            <p>Analyze quiz content and check it.</p>
+            <form action="../Teacher_Allpage/submitbytech.php" method="get">
                 <button class="btn" type="submit">Open</button>
             </form>
         </div>

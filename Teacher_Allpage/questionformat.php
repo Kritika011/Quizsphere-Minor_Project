@@ -12,13 +12,14 @@
 
 <body>
     <?php
+
     // session_start();
     include '../Navber/teachnav.php';
     include_once '../config.php';
 
     // Check if the user is an admin or a teacher
     // Check if the user is an admin or a teacher
-    $user_role = $_SESSION['user_role'] ?? 'guest'; // Default to 'guest' if not set
+    $user_role = $_SESSION['user_role'] ?? 'teacher'; // Default to 'guest' if not set
     $submitted_by = $_SESSION['user_id']; // Default value
     
     if ($user_role === 'teacher') {
@@ -31,10 +32,11 @@
         $num_of_questions = $_POST['num_of_questions'];
         $marks_per_question = $_POST['marks_per_question'];
         $time_limit = $_POST['time_limit'];
-
+        $submitted_by = $_SESSION['user_id']; // or set to logged-in user ID if available
+    
         // Insert data into paperdetails table
         $stmt = $conn->prepare("INSERT INTO paperdetails (subject_id, num_of_questions, marks_per_question, time_limit, submitted_by) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiss", $subject_id, $num_of_questions, $marks_per_question, $time_limit, $submitted_by);
+        $stmt->bind_param("iiisi", $subject_id, $num_of_questions, $marks_per_question, $time_limit, $submitted_by);
 
         if ($stmt->execute()) {
             // Get the last inserted paper ID
@@ -49,11 +51,6 @@
         $stmt->close();
         $conn->close();
     }
-
-    ?>
-
-
-    <?php
 
     // Fetch subjects for dropdown
     $subjects = [];

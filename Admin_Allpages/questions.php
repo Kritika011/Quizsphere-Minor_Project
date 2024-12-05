@@ -2,6 +2,11 @@
 $editMode = isset($_GET['edit']); // Check if the page is in edit mode
 include_once '../config.php';
 
+include_once '../Navber/adminnav.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 // Get and validate paper_id
 $paper_id = isset($_GET['paper_id']) ? intval($_GET['paper_id']) : 0;
 
@@ -34,9 +39,6 @@ $questionNumber = 1;
 </head>
 
 <body>
-    <?php
-    include_once '../Navber/adminnav.php';
-    ?>
 
     <h1><?php echo $editMode ? "Edit Quiz Questions" : "Quiz Questions"; ?></h1>
 
@@ -48,25 +50,25 @@ $questionNumber = 1;
             echo "<div class='question-container'>";
             echo "<label>Question " . $questionNumber . ":</label><br>";
             if ($editMode) {
-                echo "<input type='text' name='question[" . $row['id'] . "]' value='" . $row['question'] . "'><br>";
+                echo "<input type='text' name='question[" . $row['question_id'] . "]' value='" . $row['question'] . "'><br>";
             } else {
                 echo "<p>" . $row['question'] . "</p>";
             }
 
             echo "<label>Option 1: </label><br>";
-            echo $editMode ? "<input type='text' name='option1[" . $row['id'] . "]' value='" . $row['option1'] . "'><br>" : "<p>" . $row['option1'] . "</p>";
+            echo $editMode ? "<input type='text' name='option1[" . $row['question_id'] . "]' value='" . $row['option1'] . "'><br>" : "<p>" . $row['option1'] . "</p>";
 
             echo "<label>Option 2: </label><br>";
-            echo $editMode ? "<input type='text' name='option2[" . $row['id'] . "]' value='" . $row['option2'] . "'><br>" : "<p>" . $row['option2'] . "</p>";
+            echo $editMode ? "<input type='text' name='option2[" . $row['question_id'] . "]' value='" . $row['option2'] . "'><br>" : "<p>" . $row['option2'] . "</p>";
 
             echo "<label>Option 3: </label><br>";
-            echo $editMode ? "<input type='text' name='option3[" . $row['id'] . "]' value='" . $row['option3'] . "'><br>" : "<p>" . $row['option3'] . "</p>";
+            echo $editMode ? "<input type='text' name='option3[" . $row['question_id'] . "]' value='" . $row['option3'] . "'><br>" : "<p>" . $row['option3'] . "</p>";
 
             echo "<label>Option 4: </label><br>";
-            echo $editMode ? "<input type='text' name='option4[" . $row['id'] . "]' value='" . $row['option4'] . "'><br>" : "<p>" . $row['option4'] . "</p>";
+            echo $editMode ? "<input type='text' name='option4[" . $row['question_id'] . "]' value='" . $row['option4'] . "'><br>" : "<p>" . $row['option4'] . "</p>";
 
             echo "<label>Correct Answer: </label><br>";
-            echo $editMode ? "<input type='text' name='correct_answer[" . $row['id'] . "]' value='" . $row['correct_answer'] . "'><br>" : "<p>" . $row['correct_answer'] . "</p>";
+            echo $editMode ? "<input type='text' name='correct_answer[" . $row['question_id'] . "]' value='" . $row['correct_answer'] . "'><br>" : "<p>" . $row['correct_answer'] . "</p>";
             echo "</div>";
             $questionNumber++;
         }

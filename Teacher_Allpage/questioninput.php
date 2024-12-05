@@ -13,7 +13,6 @@
 <body>
     <?php
     // session_start();
-    include_once '../config.php';
     include '../Navber/teachnav.php';
     include_once '../config.php'; ?>
     <?php
@@ -27,7 +26,7 @@
 
 
         <form
-            action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . "?num_of_questions=$num_of_questions&paper_id=$paper_id"; ?>"
+            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?num_of_questions=$num_of_questions&paper_id=$paper_id"; ?>"
             method="post">
             <?php for ($i = 1; $i <= $num_of_questions; $i++) { ?>
                 <div class="question-block">
@@ -47,7 +46,13 @@
                     <input class="input2" type="text" name="option4[]" required><br>
 
                     <label class="label2">Correct Answer</label>
-                    <input class="input2" type="text" name="correct_answer[]" required><br><br>
+                    <!-- <input class="input2" type="text" name="correct_answer[]" required><br><br> -->
+                    <select class="input2" name="correct_answer[]" required>
+                        <option value="Option1">Option 1</option>
+                        <option value="Option2">Option 2</option>
+                        <option value="Option3">Option 3</option>
+                        <option value="Option4">Option 4</option>
+                    </select><br><br>
                 </div>
             <?php } ?>
             <input class="btn" type="submit" name="submit" value="Save Questions">
@@ -57,12 +62,17 @@
 
 </html>
 <?php
-
+// Assuming num_of_questions is passed via URL or POST from previous form
+echo "Number of Questions: " . $num_of_questions;
 
 $num_of_questions = isset($_GET['num_of_questions']) ? (int) $_GET['num_of_questions'] : 0;
 $paper_id = isset($_GET['paper_id']) ? (int) $_GET['paper_id'] : 0;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['role'] === 'teacher') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Handle form submission to insert questions into database
+    include_once '../config.php';
+    echo "Number of Questions: " . $num_of_questions;
+
     for ($i = 0; $i < $num_of_questions; $i++) {
         $question = $_POST["question"][$i];
         $option1 = $_POST["option1"][$i];
@@ -71,13 +81,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['role'] === 'teacher') {
         $option4 = $_POST["option4"][$i];
         $correct_answer = $_POST["correct_answer"][$i];
 
-        $stmt = $conn->prepare("
-            INSERT INTO exam_questions (paper_id, question, option1, option2, option3, option4, correct_answer)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        ");
+        $stmt = $conn->prepare("INSERT INTO exam_questions (paper_id, question, option1, option2, option3, option4, correct_answer) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("issssss", $paper_id, $question, $option1, $option2, $option3, $option4, $correct_answer);
-        $stmt->execute();
+        if ($stmt->execute()) {
+            echo "Question $i saved successfully!<br>";
+        } else {
+            echo "Error saving question $i: " . $stmt->error . "<br>";
+        }
+
     }
-    // echo "Questions saved successfully!";
+    $conn->close();
+    echo "Questions successfully saved!";
+    exit;
 }
 ?>

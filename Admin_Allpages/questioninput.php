@@ -47,7 +47,13 @@
                     <input class="input2" type="text" name="option4[]" required><br>
 
                     <label class="label2">Correct Answer</label>
-                    <input class="input2" type="text" name="correct_answer[]" required><br><br>
+                    <!-- <input class="input2" type="text" name="correct_answer[]" required><br><br> -->
+                    <select class="input2" name="correct_answer[]" required>
+                        <option value="Option1">Option 1</option>
+                        <option value="Option2">Option 2</option>
+                        <option value="Option3">Option 3</option>
+                        <option value="Option4">Option 4</option>
+                    </select><br><br>
                 </div>
             <?php } ?>
             <input class="btn" type="submit" name="submit" value="Save Questions">
@@ -58,7 +64,7 @@
 </html>
 <?php
 // Assuming num_of_questions is passed via URL or POST from previous form
-echo "Number of Questions: " . $num_of_questions;
+// echo "Number of Questions: " . $num_of_questions;
 
 $num_of_questions = isset($_GET['num_of_questions']) ? (int) $_GET['num_of_questions'] : 0;
 $paper_id = isset($_GET['paper_id']) ? (int) $_GET['paper_id'] : 0;
@@ -66,7 +72,7 @@ $paper_id = isset($_GET['paper_id']) ? (int) $_GET['paper_id'] : 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle form submission to insert questions into database
     include_once '../config.php';
-    echo "Number of Questions: " . $num_of_questions;
+    // echo "Number of Questions: " . $num_of_questions;
 
     for ($i = 0; $i < $num_of_questions; $i++) {
         $question = $_POST["question"][$i];

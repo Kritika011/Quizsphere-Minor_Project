@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             (user_id, phone_no, dob, gender, institute, profile_image, verification_status)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
-        $verification_status = 'pending';  // Initially set as 'pending'
+        $verification_status = '0';  // Initially set as 'pending'
         $query->bind_param("issssss", $user_id, $phone_no, $dob, $gender, $institute, $profile_image, $verification_status);
         $query->execute();
 

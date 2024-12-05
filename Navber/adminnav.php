@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 require '../config.php';
 
@@ -67,7 +69,7 @@ if ($result->num_rows > 0) {
                 <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" class="profile-image">
                 <h3 class="names"><?php echo htmlspecialchars($name); ?></h3>
                 <ul>
-                    <li><a href="#">Account Setting</a></li>
+                    <li><a href="../Navber/adminprofile.php">Account Setting</a></li>
                     <li><a href="../contact_us/contactadmin.php">Contact Us</a></li>
                     <li><a href="../about_us/aboutadmin.php">About Us</a></li>
                     <li><a href="../Navber/logout.php">Logout</a></li>

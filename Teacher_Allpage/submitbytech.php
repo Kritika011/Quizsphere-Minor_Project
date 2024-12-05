@@ -1,12 +1,7 @@
 <?php
 // session_start();
-include_once '../config.php';
-include '../Navber/teachnav.php';
-// Ensure the session is valid and the user is a teacher
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
-    echo "You are not authorized to view this page.";
-    exit;
-}
+include '../config.php';
+require '../Navber/teachnav.php';
 
 // Get the teacher's ID from the session
 $teacher_id = $_SESSION['user_id'];
@@ -24,7 +19,6 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $teacher_id); // Bind teacher_id to the query
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
 
 <!DOCTYPE html>
@@ -40,24 +34,15 @@ $result = $stmt->get_result();
 </head>
 
 <body>
-    <?php
-
-    ?>
     <h3 class="heading1">Paper Details submitted by you</h3>
 
     <?php
     // Check if any rows were returned
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            // echo '<p class="para1"><b>Subject: ' . $row['subject_name'] . ' (' . $row['subject_code'] . ')</b></p>';
-            // echo '<p class="para2"><b>Course: ' . $row['course'] . '</b></p>';
-            // echo '<p class="para2"><b>Semester: ' . $row['semester'] . '</b></p>';
-            // echo '<p class="para2"><b>Details: ' . $row['details'] . '</b></p>';
-            // echo '<p class="para2"><b>Teacher ID Card: <img src="' . $row['id_card'] . '" alt="ID Card" width="100" height="100"></b></p>';
-    
-            echo '<div class="content">';
-            echo '<table>';
-            echo '<thead>
+        // Table header is placed once before the loop
+        echo '<div class="content">';
+        echo '<table>';
+        echo '<thead>
                 <tr>
                     <th>Subject Code</th>
                     <th>Subject Name</th>
@@ -68,9 +53,10 @@ $result = $stmt->get_result();
                     <th>View Details</th>
                 </tr>
               </thead>';
-            echo '<tbody>';
+        echo '<tbody>';
 
-            // For now, just display paper details
+        // Loop through each row and display paper details
+        while ($row = $result->fetch_assoc()) {
             echo '<tr>';
             echo '<td>' . $row['subject_code'] . '</td>';
             echo '<td>' . $row['subject_name'] . '</td>';
@@ -78,13 +64,13 @@ $result = $stmt->get_result();
             echo '<td>' . $row['marks_per_question'] . '</td>';
             echo '<td>' . $row['time_limit'] . '</td>';
             echo '<td><a href="#">View</a></td>';
-            echo '<td><a href="#">Open</a></td>';
+            echo '<td><a href="../Teacher_Allpage/questions.php?paper_id=' . $row['paper_id'] . '">Open</a></td>';
             echo '</tr>';
-
-            echo '</tbody>';
-            echo '</table>';
-            echo '</div>';
         }
+
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
     } else {
         echo '<p>No papers found for this teacher.</p>';
     }

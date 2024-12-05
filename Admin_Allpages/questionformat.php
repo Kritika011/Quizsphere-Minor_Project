@@ -22,7 +22,7 @@
         $num_of_questions = $_POST['num_of_questions'];
         $marks_per_question = $_POST['marks_per_question'];
         $time_limit = $_POST['time_limit'];
-        $submitted_by = 'admin'; // or set to logged-in user ID if available
+        $submitted_by = $_SESSION['user_id'] ?? 'Admin'; // or set to logged-in user ID if available
     
         // Insert data into paperdetails table
         $stmt = $conn->prepare("INSERT INTO paperdetails (subject_id, num_of_questions, marks_per_question, time_limit, submitted_by) VALUES (?, ?, ?, ?, ?)");

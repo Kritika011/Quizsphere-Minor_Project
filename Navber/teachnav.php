@@ -1,6 +1,9 @@
 <?php
+
 session_start();
 require '../config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Check if user data is available in the session
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'teacher') {
@@ -56,7 +59,7 @@ if ($result->num_rows > 0) {
             <a href="../Teacher_home_page/teacherhome.php">Home</a>
             <a href="../Teacher_Allpage/questionformat.php">Provide Test</a>
             <a href="../Teacher_Allpage/submitbytech.php">Contributions</a>
-            <a href="../main.php">ChatBot</a>
+            <!-- <a href="../main.php">ChatBot</a> -->
         </nav>
         <div class="profile">
             <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Icon" class="profile-icon"
@@ -65,7 +68,7 @@ if ($result->num_rows > 0) {
                 <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" class="profile-image">
                 <h3 class="names"><?php echo htmlspecialchars($name); ?></h3>
                 <ul>
-                    <li><a href="#">Account Setting</a></li>
+                    <li><a href="../Navber/teacherprofile.php">Account Setting</a></li>
                     <li><a href="../contact_us/contactteach.php">Contact Us</a></li>
                     <li><a href="../about_us/aboutteacher.php">About Us</a></li>
                     <li><a href="../Navber/logout.php">Logout</a></li>

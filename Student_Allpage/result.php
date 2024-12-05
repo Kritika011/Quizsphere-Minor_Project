@@ -1,33 +1,39 @@
 <?php
-// $student_id = $_SESSION['user_id'];
-include '../config.php';
-$_SESSION['user_id'];
-// session_start();
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
-//     exit;
-// }
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../Home_page/index.php"); // Redirect to login page if not logged in
+    exit;
+}
 
-// Include the database connection
+include '../config.php'; // Include the database connection
 
-// Get the logged-in student ID
+// Fetch result details
+$student_id = $_SESSION['user_id']; // Get the logged-in student ID
+$paper_id = isset($_GET['paper_id']) ? intval($_GET['paper_id']) : 0; // Get the paper_id from the URL
+$score = isset($_GET['score']) ? intval($_GET['score']) : 0; // Get the score from the URL
+$total_questions = isset($_GET['total_questions']) ? intval($_GET['total_questions']) : 0; // Get total questions from the URL
+$correct_answers = isset($_GET['correct_answers']) ? intval($_GET['correct_answers']) : 0; // Get correct answers from the URL
+$total_attended = isset($_GET['total_attended']) ? intval($_GET['total_attended']) : 0; // Get total attended questions
 
-// Fetch results for the logged-in student, including the paper title
-$result_query = "
-    SELECT 
-        r.*, 
-        pd.paper_id, 
-        CONCAT(s.subject_name, ' - Question Paper Set ', pd.paper_id) AS papertitle
-    FROM 
-        results r
-    JOIN 
-        paperdetails pd ON r.paper_id = pd.paper_id
-    JOIN 
-        subjects s ON pd.subject_id = s.subject_id
-    WHERE 
-        r.student_id = '$student_id'
-";
-$result_data = mysqli_query($conn, $result_query);
+// Fetch paper details to display subject and time limit
+$paper_query = "SELECT * FROM paperdetails WHERE paper_id = ?";
+$stmt = mysqli_prepare($conn, $paper_query);
+mysqli_stmt_bind_param($stmt, 'i', $paper_id);
+mysqli_stmt_execute($stmt);
+$paper_result = mysqli_stmt_get_result($stmt);
+$paper_details = mysqli_fetch_assoc($paper_result);
+
+// Get subject name (optional if you have a subjects table)
+$subject_id = $paper_details['subject_id'];
+$subject_query = "SELECT subject_name FROM subjects WHERE subject_id = ?";
+$stmt = mysqli_prepare($conn, $subject_query);
+mysqli_stmt_bind_param($stmt, 'i', $subject_id);
+mysqli_stmt_execute($stmt);
+$subject_result = mysqli_stmt_get_result($stmt);
+$subject_name = mysqli_fetch_assoc($subject_result)['subject_name'];
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -36,120 +42,84 @@ $result_data = mysqli_query($conn, $result_query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
-    <link rel="stylesheet" href="../Navber/style.css">
-    <?php
-    include '../Navber/nav.php';
-    ?>
+    <title>Exam Results</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        body {
             font-family: Arial, sans-serif;
-        }
-
-        body {
+            margin: 20px;
             background-color: #333;
-            /* padding: 20px; */
+            color: white;
         }
 
-
-
-        * {
-            margin: 0;
-            padding: 0;
-            font: 1em;
-        }
-
-        body {
-            background-color: #333;
-            color: #ffffff;
-        }
-
-        .heading1 {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .para1 {
-            float: left;
-            padding-left: 40%;
-            margin-top: 15px;
-            font-size: 18px;
-            font-weight: 30px;
-        }
-
-        .para2 {
-            float: right;
-            padding-right: 40%;
-            margin-top: 15px;
-            font-size: 18px;
-            font-weight: 30px;
-        }
-
-        .content {
-            margin-top: 3vw;
-        }
-
-        table {
-            margin: auto;
-            padding: auto;
-            border-collapse: collapse;
+        .result-box {
+            border: 2px solid black;
             background-color: #222;
-            /* border-radius: 10px; */
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.633);
-            width: 70%;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin: 0px 20%;
+        }
+
+        h2 {
             text-align: center;
-            align-items: center;
-            margin-top: 30px;
+            color: white;
         }
 
-        th {
+        .details {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            margin-left: 30px;
+        }
+
+        .score {
+            font-size: 1.5rem;
+            color: green;
+            font-weight: bold;
+            margin-left: 30px;
+        }
+
+        .incorrect {
+            font-size: 18px;
+            color: red;
+        }
+
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
             padding: 10px;
+            background-color: green;
+            color: white;
             text-align: center;
-        }
-
-        td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid rgba(255, 255, 255, 0.845);
+            text-decoration: none;
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
-    <!-- <h1>Your Results</h1> -->
-    <?php if (mysqli_num_rows($result_data) > 0): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Paper Title</th>
-                    <th>Total Questions</th>
-                    <th>Correct Answers</th>
-                    <th>Total Attended</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result_data)): ?>
-                    <tr>
-                        <td><?php echo $row['papertitle']; ?></td>
-                        <td><?php echo $row['total_questions']; ?></td>
-                        <td><?php echo $row['correct_answers']; ?></td>
-                        <td><?php echo $row['total_attended']; ?></td>
-                        <td><?php echo $row['score']; ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p class="no-results">No results available for your account.</p>
-    <?php endif; ?>
+
+    <h2>Exam Results</h2>
+
+    <div class="result-box">
+        <p class="details">Subject: <?php echo $subject_name; ?></p>
+        <!-- <p class="details">Paper ID: 
+            <?php echo $paper_id; ?>
+    </p> -->
+        <p class="details">Time Limit: <?php echo $paper_details['time_limit']; ?> minutes</p>
+        <p class="details">Total Questions: <?php echo $total_questions; ?></p>
+        <p class="details">Questions Attended: <?php echo $total_attended; ?></p>
+        <p class="details">Correct Answers: <?php echo $correct_answers; ?></p>
+
+        <p class="score">Your Score: <?php echo $score; ?> / <?php echo $total_questions; ?></p>
+
+        <?php if ($correct_answers < $total_questions): ?>
+            <p class="incorrect">You have some incorrect answers. Please review them.</p>
+        <?php endif; ?>
+
+        <a href="../Student_home_page/studenthome.php" class="button">Go to Home</a>
+    </div>
+
 </body>
 
 </html>

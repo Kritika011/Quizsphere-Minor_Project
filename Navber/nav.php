@@ -56,8 +56,8 @@ if ($result->num_rows > 0) {
         <nav class="nav">
             <a href="../Student_home_page/studenthome.php">Home</a>
             <a href="../Student_Allpage/takequiz.php">Take Quiz</a>
-            <a href="../Student_Allpage/result.php">Result</a>
-            <a href="../main.php">ChatBot</a>
+            <a href="../Student_Allpage/resultlist.php">Result</a>
+            <!-- <a href="../main.php">ChatBot</a> -->
         </nav>
         <div class="profile">
             <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Icon" class="profile-icon"
@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
                 <img src="<?php echo htmlspecialchars($profile_image); ?>" alt="Profile Picture" class="profile-image">
                 <h3 class="names"><?php echo htmlspecialchars($name); ?> </h3>
                 <ul>
-                    <li><a href="#">Account Setting</a></li>
+                    <li><a href="../Navber/studentprofile.php">Account Setting</a></li>
                     <li><a href="../contact_us/contactstudent.php">Contact Us</a></li>
                     <li><a href="../about_us/aboutstudent.php">About Us</a></li>
                     <li><a href="../Navber/logout.php">Logout</a></li>
