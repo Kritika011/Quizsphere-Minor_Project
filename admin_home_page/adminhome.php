@@ -30,7 +30,7 @@
             <img src="https://icon-library.com/images/manage-icon/manage-icon-12.jpg" alt="Manage Students">
             <h3>Manage Students</h3>
             <p>View and manage student profiles and performance in each course.</p>
-            <form action="../Teacher_Allpage/questionformat.php" method="get">
+            <form action="../Admin_Allpages/studentlist.php" method="get">
                 <button class="btn" type="submit">Open</button>
             </form>
         </div>

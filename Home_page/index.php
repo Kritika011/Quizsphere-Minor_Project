@@ -1,6 +1,9 @@
 <?php
 session_start();
 require '../config.php';
+// echo $_SESSION["message"];
+$verification_token = rand(100000, 999999); // Generate a 6-digit OTP
+
 
 // Signup handling
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
@@ -19,13 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
 
     try {
         if ($role === 'admin') {
+            $query = $conn->prepare("
+    DELETE FROM user
+    WHERE is_verified = 0 AND created_at < (NOW() - INTERVAL 15 MINUTE)
+");
+            $query->execute();
+
             // Store admin in a separate table
-            $query = $conn->prepare("INSERT INTO admins (name, email, password, verified) VALUES (?, ?, ?, 0)");
+            $query = $conn->prepare("INSERT INTO admins (name, email, password, verified, is_verified, verification_token) VALUES (?, ?, ?, 0, 0, ?)");
             if (!$query) {
                 throw new Exception("Prepare statement failed: " . $conn->error);
             }
-            $query->bind_param("sss", $name, $email, $password);
+            $query->bind_param("ssss", $name, $email, $password, $verification_token);
             $query->execute();
+            require_once '../Home_page/mailer.php'; // Include your PHPMailer setup
+            sendOtpEmail($email, $verification_token);
             $user_id = $conn->insert_id;
 
             // Set session variables
@@ -35,16 +46,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
             $_SESSION['name'] = $name;
 
             $_SESSION['message'] = "Admin signup successful. Please wait for verification.";
-            $redirect_page = "../Registration/adminregistration.php"; // Admin registration page
+            $_SESSION['email'] = $email; // Store the user's email in the session for verification
+            header("Location: ../Home_page/verify.php");
+            // $redirect_page = "../Registration/adminregistration.php"; // Admin registration page
         } else {
+            $query = $conn->prepare("
+    DELETE FROM user
+    WHERE is_verified = 0 AND created_at < (NOW() - INTERVAL 15 MINUTE)
+");
+            $query->execute();
+
             // Store students and teachers in the 'user' table
-            $query = $conn->prepare("INSERT INTO user (name, email, password, role) VALUES (?, ?, ?, ?)");
+            $query = $conn->prepare("INSERT INTO user (name, email, password, role, is_verified, verification_token) VALUES (?, ?, ?, ?, 0, ?)");
             if (!$query) {
                 throw new Exception("Prepare statement failed: " . $conn->error);
             }
-            $query->bind_param("ssss", $name, $email, $password, $role);
+            $query->bind_param("sssss", $name, $email, $password, $role, $verification_token);
             $query->execute();
-
+            require_once '../Home_page/mailer.php'; // Include your PHPMailer setup
+            sendOtpEmail($email, $verification_token);
             // Retrieve the inserted user ID
             $user_id = $conn->insert_id;
 
@@ -56,11 +76,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
 
             // Determine the redirect page based on role
             if ($role === 'student') {
-                $_SESSION['message'] = "Student signup successful. Please complete your registration.";
-                $redirect_page = "../Registration/registration.php"; // Student registration page
+                // $_SESSION['message'] = " signup successful. Please complete your registration.";
+                $_SESSION['message'] = " Student signup successful. Please wait for verification.";
+                $_SESSION['email'] = $email; // Store the user's email in the session for verification
+                header("Location: ../Home_page/verify.php"); // Student registration page
             } elseif ($role === 'teacher') {
-                $_SESSION['message'] = "Teacher signup successful. Please complete your registration.";
-                $redirect_page = "../Registration/teachregister.php"; // Teacher registration page
+                // $_SESSION['message'] = " signup successful. Please complete your registration.";
+                $_SESSION['message'] = "Teacher signup successful. Please wait for verification.";
+                $_SESSION['email'] = $email; // Store the user's email in the session for verification
+                header("Location: ../Home_page/verify.php");
             } else {
                 // Handle unexpected roles
                 $_SESSION['error'] = "Invalid role selected.";
@@ -70,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
         }
 
         // Redirect to the respective registration page
-        header("Location: $redirect_page");
+        header("Location: ../Home_page/verify.php");
         exit(); // Ensure no further code is executed
     } catch (mysqli_sql_exception $e) {
         if ($e->getCode() == 1062) { // Error code for duplicate entry
@@ -95,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin'])) {
 
     if ($role === 'admin') {
         // Admin login with additional check for verified status
-        $query = $conn->prepare("SELECT * FROM admins WHERE email = ? AND role = ?");
+        $query = $conn->prepare("SELECT * FROM admins WHERE email = ? AND role = ? AND is_verified = 1");
         $query->bind_param("ss", $email, $role);
         $query->execute();
         $result = $query->get_result();
@@ -124,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin'])) {
         }
     } else {
         // Teacher/Student login: Check in 'user' table
-        $query = $conn->prepare("SELECT * FROM user WHERE email = ? AND role = ?");
+        $query = $conn->prepare("SELECT * FROM user WHERE email = ? AND role = ?  AND is_verified = 1");
         $query->bind_param("ss", $email, $role);
         $query->execute();
         $result = $query->get_result();

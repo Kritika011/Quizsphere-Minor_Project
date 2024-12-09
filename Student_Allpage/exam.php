@@ -147,6 +147,7 @@ $total_questions = count($questions);
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 10px;
+            margin: 0 20px;
         }
 
         button:hover {
@@ -159,6 +160,24 @@ $total_questions = count($questions);
 
         #prev:hover {
             background-color: #d32f2f;
+        }
+
+        #next {
+            background-color: #4CAF50;
+        }
+
+        #next:hover {
+            background-color: #45a049;
+        }
+
+        #sub {
+            /* margin-top: 30px; */
+            background-color: gold;
+            color: black;
+        }
+
+        #sub:hover {
+            background-color: goldenrod;
         }
 
         /* Form control */
@@ -248,8 +267,9 @@ $total_questions = count($questions);
 
         <div class="butts">
             <button type="button" id="prev" onclick="navigate('prev')">Previous</button>
+            <button type="submit" id="sub" name="action" value="submit">Submit</button>
             <button type="button" id="next" onclick="navigate('next')">Next</button>
-            <button type="submit" name="action" value="submit">Submit</button>
+
         </div>
     </form>
 

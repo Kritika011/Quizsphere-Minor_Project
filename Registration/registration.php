@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require '../config.php';
 
@@ -15,13 +18,9 @@ $email = $_SESSION['email'];
 $role = $_SESSION['role'];
 $name = $_SESSION['name'];
 
-// Use these variables as needed in your registration logic
-?>
-<?php
-// session_start();
-
+// Form handling
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_SESSION['user_id']; // Get the user ID from the session
+
     $phone_no = htmlspecialchars($_POST['phoneno']);
     $dob = $_POST['dob'];
     $gender = $_POST['gender'];
@@ -32,21 +31,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Upload profile image
     $target_dir = "../uploads/"; // Change this to your desired directory
     $profile_image = $target_dir . basename($_FILES["id_card"]["name"]);
-    move_uploaded_file($_FILES["id_card"]["tmp_name"], $profile_image);
+
+    //Check if file is uploaded
+    if (!move_uploaded_file($_FILES["id_card"]["tmp_name"], $profile_image)) {
+        $_SESSION['error'] = "Failed to upload profile image.";
+        header("Location: ../Registration/registration.php");
+        exit();
+    }
+    if ($_FILES['id_card']['error'] != UPLOAD_ERR_OK) {
+        $_SESSION['error'] = "File upload failed. Error: " . $_FILES['id_card']['error'];
+
+        header("Location: ../Registration/registration.php");
+        exit();
+    }
 
     try {
         // Insert student details
         $query = $conn->prepare("
-            INSERT INTO studentdetails 
-            (user_id, phone_no, dob, gender, course, semester, institute, profile_image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+INSERT INTO studentdetails
+(user_id, phone_no, dob, gender, course, semester, institute, profile_image)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+");
         $query->bind_param("isssssss", $user_id, $phone_no, $dob, $gender, $course, $semester, $institute, $profile_image);
-        $query->execute();
 
-        $_SESSION['message'] = "Registration successful!";
-        header("Location: ../Student_home_page/studenthome.php"); // Redirect to student dashboard
-        exit();
+        if ($query->execute()) {
+            $_SESSION['message'] = "Registration successful!";
+            header("Location: ../Student_home_page/studenthome.php"); // Redirect to student dashboard
+            exit();
+        } else {
+            $_SESSION['error'] = "Error: " . $query->error;
+            header("Location: ../Registration/registration.php");
+            exit();
+        }
+
     } catch (mysqli_sql_exception $e) {
         $_SESSION['error'] = "Error: " . $e->getMessage();
         header("Location: ../Registration/registration.php");
@@ -67,7 +84,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="shortcut icon" href="icon.jpg" type="image/x-icon">
 </head>
 <style>
-
+    body {
+        background-color: antiquewhite;
+    }
 </style>
 
 <body>
@@ -80,13 +99,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" value="<?php echo htmlspecialchars($name); ?>" name="name" readonly>
             </div>
             <div class="input-box">
-                <label>Phone No</label>
-                <input type="number" placeholder="Enter phone no" name="phoneno" required>
-            </div>
-            <div class="input-box">
                 <label>Email Address</label>
                 <input type="email" value="   <?php echo htmlspecialchars($email); ?>" name="email" readonly>
             </div>
+            <div class="input-box">
+                <label>Phone No</label>
+                <input type="number" placeholder="Enter phone no" name="phoneno" required>
+            </div>
+
             <div class="input-box">
                 <label>Role</label>
                 <input type="text" value="<?php echo htmlspecialchars($_SESSION['role']); ?>" name="role" disabled

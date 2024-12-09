@@ -23,7 +23,7 @@ we are giving you the unique opportunity to thrive..
         </pre>
     </div>
     <h1> START, Challenging yourself no time to waste </h1>
-    <div class="container">
+    <!-- <div class="container">
         <div class="course-card">
             <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg"
                 alt="C Programming">
@@ -33,10 +33,10 @@ we are giving you the unique opportunity to thrive..
                 <input type="hidden" name="course" value="c_programming">
                 <button class="btn" type="submit">Open</button>
             </form>
-        </div>
+        </div> -->
 
-        <!-- Course 3 -->
-        <div class="course-card">
+    <!-- Course 3 -->
+    <!-- <div class="course-card">
             <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg"
                 alt="C Programming">
             <h3>C Programming</h3>
@@ -64,8 +64,8 @@ we are giving you the unique opportunity to thrive..
             <form action="../Student_Allpage/questionstatus.php" method="get">
                 <input type="hidden" name="course" value="c_programming">
                 <button class="btn" type="submit">Open</button>
-            </form>
-        </div>
+            </form> -->
+    </div>
     </div>
 </body>
 
