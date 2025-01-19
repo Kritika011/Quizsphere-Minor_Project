@@ -92,7 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
                 exit();
             }
         }
-
         // Redirect to the respective registration page
         header("Location: ../Home_page/verify.php");
         exit(); // Ensure no further code is executed

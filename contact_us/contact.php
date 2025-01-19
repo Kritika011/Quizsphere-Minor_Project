@@ -1,3 +1,23 @@
+<?php
+include '../config.php';
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = $conn->real_escape_string($_POST['name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $phone = $conn->real_escape_string($_POST['Phone']);
+    $message = $conn->real_escape_string($_POST['message']);
+
+    $sql = "INSERT INTO contact_us (name, email, phone, message) VALUES ('$name', '$email', '$phone', '$message')";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Your message has been sent successfully!";
+    } else {
+        // echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -99,13 +119,14 @@
 
             </div>
             <div class="flex-item-right">
-                <form id="contactForm">
+                <form id="contactForm" method="POST">
                     <input type="text" placeholder="Your Full Name" id="name" name="name" required>
                     <input type="email" id="email" name="email" required placeholder="Email Id">
                     <input type="Phone" id="Phone" name="Phone" required placeholder="Phone No">
                     <textarea id="message" name="message" required placeholder="Message"></textarea>
                     <button type="submit">Send</button>
                 </form>
+
             </div>
         </div>
     </div>

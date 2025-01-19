@@ -77,15 +77,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Token</title>
+    <title>Quiz Sphere</title>
 </head>
+<style>
+    body {
+        background-color: #333;
+        color: white;
+    }
+
+    a {
+        color: yellow;
+    }
+</style>
 
 <body>
     <h2>Email Verification</h2>
     <?php if (isset($error))
         echo "<p style='color: red;'>$error</p>"; ?>
     <form method="POST">
-        <label for="otp">Enter Verification Token:</label>
+        <label for="otp">Enter Verification Code : </label>
         <input type="text" id="otp" name="otp" required>
         <button type="submit">Verify</button>
     </form>

@@ -12,13 +12,14 @@ body {
 }
 
 .question-paper {
-  width: 60%;
+  width: 70%;
+  height: 100%;
   margin: auto;
   background-color: #222;
   /* border-radius: 10px; */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.633);
   margin-top: 3vw;
-  padding: 3vw;
+  /* padding: 3vw; */
   align-items: center;
 }
 h2 {
@@ -126,7 +127,7 @@ h2 {
   border: none;
   border-radius: 5px;
   text-decoration: none;
-  margin-top: 20px;
+  margin-top: -50px;
 }
 
 .question-paper .btn:hover {
